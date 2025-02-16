@@ -1,0 +1,138 @@
+/* Container */
+.signup-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f4f5f7;
+  padding: 20px;
+}
+
+/* Left Side */
+.signup-left {
+  flex: 1;
+  background: linear-gradient(135deg, #5b46f7, #a066f7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 12px;
+  padding: 20px;
+  min-height: 400px;
+}
+
+.signup-message {
+  text-align: center;
+  color: white;
+}
+
+.stethoscope-img {
+  width: 150px;
+  margin-bottom: 15px;
+}
+
+/* Right Side */
+.signup-right {
+  flex: 1;
+  background: white;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+}
+
+.signup-right h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 22px;
+  color: #333;
+}
+
+.signup-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.signup-form input {
+  padding: 12px;
+  margin: 8px 0;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.signup-btn {
+  background: #5b46f7;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.signup-btn:hover {
+  background: #4a39d8;
+}
+
+/* Social Login */
+.or {
+  text-align: center;
+  margin: 15px 0;
+  font-size: 14px;
+  color: #777;
+}
+
+.social-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.google-btn,
+.facebook-btn {
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.google-btn {
+  background: #db4437;
+  color: white;
+}
+
+.facebook-btn {
+  background: #4267b2;
+  color: white;
+}
+
+/* Login Link */
+.login-link {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.login-link a {
+  color: #5b46f7;
+  text-decoration: none;
+}
+
+.login-link a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .signup-container {
+    flex-direction: column;
+  }
+  .signup-left {
+    display: none;
+  }
+  .signup-right {
+    width: 100%;
+    max-width: 360px;
+  }
+}
