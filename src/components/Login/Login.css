@@ -1,131 +1,170 @@
-/* Global Styling */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
+.signin-container {
+  padding-top: 30px;
+  padding-bottom: 30px;
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background-color: #f2f3f8;
 }
 
-/* Container */
-.login-container {
+.signin-left {
+  background-color: white;
   display: flex;
-  justify-content: center;
   align-items: center;
-  height: 100vh;
-  background-color: #f8f9fa;
+  justify-content: center;
+  padding: 2rem;
+  border-top-left-radius: 1.5rem;
+  border-bottom-left-radius: 1.5rem;
 }
 
-/* Login Box */
-.login-box {
+.font-semibold {
+  font-size: 25px;
+  top: 50px;
+}
+
+.signin-logo {
   display: flex;
-  width: 900px;
-  background: white;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-  overflow: hidden;
+  justify-content: flex-end;
+  font-weight: bold;
+  position: absolute;
+  top: 90px;
+  left: 30px;
 }
 
-/* Left Side */
-.login-left {
-  flex: 1;
-  padding: 40px;
+.text-primary {
+  color: #7c3aed;
+}
+
+.text-secondary {
+  color: #22c55e;
+}
+
+.signin-form-container {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.signin-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.signin-form {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  gap: 1rem;
 }
 
-.login-left h1 {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 20px;
-}
-
-.input-group {
+.input-field {
   width: 100%;
-  margin-bottom: 15px;
-}
-
-.input-group input {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-.error {
-  color: red;
-  font-size: 12px;
-}
-
-.login-button {
-  width: 100%;
-  padding: 12px;
-  background: #6a11cb;
-  color: white;
-  font-size: 16px;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  background-color: #f4f3ff;
   border: none;
-  border-radius: 5px;
+  outline: none;
+  transition: all 0.3s;
+}
+
+.input-field:focus {
+  box-shadow: 0 0 5px #7c3aed;
+}
+
+.password-container {
+  position: relative;
+}
+
+.eye-icon {
+  position: absolute;
+  top: 50%;
+  right: 1rem;
+  transform: translateY(-50%);
+  color: #6b7280;
   cursor: pointer;
 }
 
-.social-login {
-  text-align: center;
-  margin-top: 20px;
-}
-
-.google-login,
-.facebook-login {
+.signin-button {
   width: 100%;
-  padding: 10px;
-  margin-top: 10px;
+  background-color: #7c3aed;
+  color: white;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  text-align: center;
+  transition: background 0.3s;
   border: none;
-  cursor: pointer;
-  font-size: 14px;
 }
 
-.google-login {
-  background: #db4437;
-  color: white;
+.signin-button:hover {
+  background-color: #6d28d9;
 }
 
-.facebook-login {
-  background: #3b5998;
-  color: white;
+.divider {
+  position: relative;
+  text-align: center;
+  font-size: 0.75rem;
+  color: gray;
 }
 
-.signup-text {
-  margin-top: 10px;
-  font-size: 14px;
+.divider::before,
+.divider::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 40%;
+  height: 1px;
+  background: gray;
 }
 
-/* Right Side */
-.login-right {
-  flex: 1;
-  background: linear-gradient(135deg, #6a11cb, #2575fc);
-  display: flex;
+.divider::before {
+  left: 0;
+}
+
+.divider::after {
+  right: 0;
+}
+
+.link {
+  color: #7c3aed;
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+/* Right Section */
+.signin-right {
+  display: none;
+  background-color: #7c3aed;
   align-items: center;
   justify-content: center;
-  color: white;
+  padding: 2rem;
+  border-top-right-radius: 1.5rem;
+  border-bottom-right-radius: 1.5rem;
 }
 
-.image-box {
-  text-align: center;
-}
-
-.image-box img {
-  width: 80%;
-  margin-top: 10px;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .login-box {
-    flex-direction: column;
-    width: 90%;
+@media (min-width: 768px) {
+  .signin-right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
-  .login-right {
-    display: none; /* Hide the image on small screens */
+  .thank-you {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+    padding: 5rem;
+    border-radius: 1.5rem;
+    text-align: center;
+    color: white;
+  }
+
+  .thank-you h2 {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+
+  .thank-you p {
+    font-size: 1.2rem;
   }
 }
