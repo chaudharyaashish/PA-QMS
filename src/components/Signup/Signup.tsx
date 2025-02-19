@@ -12,7 +12,7 @@ import { db } from "../../firebaseConfig";
 import { doc, serverTimestamp, setDoc } from "firebase/firestore";
 import { toast, ToastContainer } from "react-toastify";
 import { FirebaseError } from "firebase/app";
-import "./Signup.css"; // Import CSS file
+import "./Signup.css"; 
 
 export default function Signup() {
   const [name, setName] = useState<string>("");

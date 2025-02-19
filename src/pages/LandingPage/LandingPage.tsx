@@ -20,7 +20,7 @@ export default function LandingPage() {
             {/* Navigation Links */}
             <div className="navbar-links">
               <Link to="/services" className="nav-link">
-                Service
+                Services
               </Link>
               <Link to="/contact" className="nav-link">
                 Contact Us
@@ -66,7 +66,6 @@ export default function LandingPage() {
         </div>
 
         {/* Right Side - Image */}
-        <p className="service-text">24/7 Service</p>
         <div className="image-container">
           <img
             src={img}
@@ -78,6 +77,7 @@ export default function LandingPage() {
 
         {/* Bottom - Search Section */}
         <div className="search-box">
+          <p className="service-text">24/7 Service</p>
           <h3 className="search-title">Find a Doctor</h3>
           <div className="search-form">
             <input type="text" placeholder="Name" className="input-field" />

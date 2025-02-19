@@ -158,3 +158,12 @@
 .search-button:hover {
   background-color: #0d9488;
 }
+.book {
+  position: fixed;
+  bottom: 15px; 
+  left: 15px;
+  background-color: #1d25ae; 
+  padding: 1rem; 
+  border-radius: 10px; 
+}
+

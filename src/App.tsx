@@ -7,13 +7,16 @@ import {
 } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import Login from "./components/Login/Login";
+import ServiceSection from "./pages/ServiceSection/Services.tsx";
 import AdminDashboard from "./components/Admin/AdminDashboard";
-import LandingPage from "./components/LandingPage/LandingPage.tsx";
+import LandingPage from "./pages/LandingPage/LandingPage.tsx";
 import { auth } from "./firebaseConfig.ts";
 import Signup from "./components/Signup/Signup.tsx";
+
 interface PrivateRouteProps {
   children: ReactNode;
 }
+
 const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }) => {
   const [user] = useAuthState(auth);
 
@@ -32,6 +35,7 @@ const App: React.FC = () => {
         <Route index path="/" element={<LandingPage />} />
         <Route path="/signin" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/services" element={<ServiceSection />} />
         <Route
           path="/admin-dashboard"
           element={
