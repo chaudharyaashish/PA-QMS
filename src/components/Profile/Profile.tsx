@@ -1,7 +1,14 @@
 import { Mail, Phone, MapPin, Edit2 } from "lucide-react";
 import "./Profile.css"; // Import the CSS file
+import { useNavigate } from "react-router-dom";
 
 export default function Profile() {
+  const navigate = useNavigate();
+
+  const handleEditProfile = () => {
+    navigate("/edit-profile"); 
+  };
+
   return (
     <div className="profile-container">
       <div className="profile-card">
@@ -10,12 +17,11 @@ export default function Profile() {
 
         {/* Profile Avatar */}
         <div className="profile-avatar">
-          <img src="https://via.placeholder.com/150" alt="Profile picture" />
+          <img src="" alt="Profile Picture" />
         </div>
 
         {/* Profile Info */}
         <h1 className="profile-name">John Doe</h1>
-        <span className="profile-badge">Premium Member</span>
 
         <div className="profile-details">
           <div className="profile-info">
@@ -45,7 +51,7 @@ export default function Profile() {
 
         {/* Buttons */}
         <div className="profile-buttons">
-          <button className="btn-primary">
+          <button className="btn-primary" onClick={handleEditProfile}>
             <Edit2 className="btn-icon" /> Edit Profile
           </button>
         </div>

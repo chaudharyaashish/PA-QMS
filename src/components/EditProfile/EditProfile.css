@@ -1,0 +1,138 @@
+.edit-profile-container {
+  padding: 1rem;
+}
+.profile {
+  width: 45%;
+}
+
+.edit-profile-button {
+  background: transparent;
+  border: 1px solid #ccc;
+  padding: 0.6rem 1rem;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.edit-profile-button .icon {
+  margin-right: 8px;
+}
+
+.edit-profile-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.14);
+  width: 100vw;
+}
+
+.modal-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-content h2 {
+  margin-bottom: 8px;
+}
+
+.input-filed {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 45%;
+}
+
+.input-group {
+  margin-bottom: 1rem;
+  width: 40vw;
+}
+
+.input-group label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.input-group input,
+.input-group textarea {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.profile-section {
+  display: flex;
+  align-items: center;
+}
+
+.profile-image {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.profile-inputs {
+  display: flex;
+  flex-direction: column;
+}
+
+.url-upload {
+  display: flex;
+  align-items: center;
+  margin-top: 5px;
+}
+
+.url-upload input {
+  flex: 1;
+  margin-right: 5px;
+}
+
+.url-upload button {
+  background: #007bff;
+  color: white;
+  padding: 5px 8px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.container {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.cancel-button {
+  background: #ccc;
+  border: none;
+  padding: 0.6rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 15vw;
+}
+
+.save-button {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 0.6rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 15vw;
+}
+
+.save-button:hover {
+  background: #0056b3;
+}
