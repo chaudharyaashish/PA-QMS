@@ -15,6 +15,7 @@ import { doc, getDoc } from "firebase/firestore";
 import "./Login.css";
 
 export default function Signin() {
+  const [userType, setUserType] = useState<string>("patient");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [seePassword, setSeePassword] = useState<boolean>(false);
@@ -37,12 +38,24 @@ export default function Signin() {
 
       if (userSnap.exists()) {
         const userData = userSnap.data();
-        const userType = userData.userType;
+        const storedUserType = userData.userType;
+
+        if (!storedUserType) {
+          toast.error("User type not found in database!");
+          return;
+        }
+
+        if (storedUserType !== userType) {
+          toast.error(
+            `Login failed! You selected '${userType}', but you are registered as '${storedUserType}'.`
+          );
+          return;
+        }
 
         toast.success("Logged in Successfully!");
 
-        // Redirect user based on type
-        switch (userType) {
+        // Redirect user based on stored user type
+        switch (storedUserType) {
           case "admin":
             navigate("/admin-dashboard");
             break;
@@ -50,7 +63,7 @@ export default function Signin() {
             navigate("/doctor-dashboard");
             break;
           case "patient":
-            navigate("/patient-dashboard");
+            navigate("/patientDashboard");
             break;
           default:
             navigate("/dashboard");
@@ -90,17 +103,30 @@ export default function Signin() {
           <h1 className="signin-title">LOGIN</h1>
 
           <form className="signin-form" onSubmit={onSubmit}>
-            <div>
-              <input
-                type="email"
-                className="input-field"
-                placeholder="Username"
-                value={email}
-                name="email"
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </div>
+            {/* Email Input */}
+            <input
+              type="email"
+              className="input-field"
+              placeholder="Email"
+              value={email}
+              name="email"
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
 
+            {/* User Type Selection */}
+            <select
+              className="select-field"
+              value={userType}
+              onChange={(e) => setUserType(e.target.value)}
+              required
+            >
+              <option value="admin">Admin</option>
+              <option value="doctor">Doctor</option>
+              <option value="patient">Patient</option>
+            </select>
+
+            {/* Password Input */}
             <div className="password-container">
               <input
                 type={seePassword ? "text" : "password"}
@@ -110,6 +136,7 @@ export default function Signin() {
                 value={password}
                 name="password"
                 onChange={(e) => setPassword(e.target.value)}
+                required
               />
               <div
                 className="eye-icon"
@@ -119,14 +146,18 @@ export default function Signin() {
               </div>
             </div>
 
+            {/* Submit Button */}
             <button type="submit" className="signin-button">
               Login Now
             </button>
 
+            {/* Divider */}
             <div className="divider">Login with Others</div>
 
+            {/* OAuth Login */}
             <OAuth />
 
+            {/* Signup Link */}
             <div className="signup-link">
               Don't have an account?{" "}
               <Link to="/signup" className="link">

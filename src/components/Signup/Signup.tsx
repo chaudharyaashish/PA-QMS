@@ -12,16 +12,24 @@ import { db } from "../../firebaseConfig";
 import { doc, serverTimestamp, setDoc } from "firebase/firestore";
 import { toast, ToastContainer } from "react-toastify";
 import { FirebaseError } from "firebase/app";
-import "./Signup.css"; 
+import "./Signup.css";
 
 export default function Signup() {
+  const [userType, setUserType] = useState<string>("patient");
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [confirmPassword, setConfirmPassword] = useState<string>(""); // Added confirmPassword
   const navigate = useNavigate();
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
+
+    if (password !== confirmPassword) {
+      toast.error("Passwords do not match!"); // Fixed error message
+      return;
+    }
+
     try {
       const auth = getAuth();
       const userCredentials = await createUserWithEmailAndPassword(
@@ -37,6 +45,7 @@ export default function Signup() {
       await setDoc(doc(db, "users", user.uid), {
         name,
         email,
+        userType, // Added userType to Firestore
         createdAt: serverTimestamp(),
       });
 
@@ -89,6 +98,16 @@ export default function Signup() {
           </div>
 
           <form onSubmit={onSubmit} className="signup-form">
+            <select
+              className="signup-input"
+              value={userType}
+              onChange={(e) => setUserType(e.target.value)}
+              required
+            >
+              <option value="patient">Patient</option>
+              <option value="doctor">Doctor</option>
+            </select>
+
             <input
               type="text"
               className="signup-input"
@@ -111,6 +130,14 @@ export default function Signup() {
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+            <input
+              type="password"
+              className="signup-input"
+              placeholder="Confirm Password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
               required
             />
 

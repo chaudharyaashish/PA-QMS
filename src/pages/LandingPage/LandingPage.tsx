@@ -12,7 +12,7 @@ export default function LandingPage() {
             {/* Logo */}
             <div className="navbar-logo">
               <div className="logo-text">
-                <span className="text-white">PA</span> &{" "}
+                <span className="text-green-800">PA</span> &{" "}
                 <span className="text-blue-900">QMS</span>
               </div>
             </div>

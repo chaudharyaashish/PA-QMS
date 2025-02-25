@@ -12,6 +12,8 @@ import AdminDashboard from "./components/Admin/AdminDashboard";
 import LandingPage from "./pages/LandingPage/LandingPage.tsx";
 import { auth } from "./firebaseConfig.ts";
 import Signup from "./components/Signup/Signup.tsx";
+import PatientDashboard from "./pages/PatientDashboard/PatientDashboard.tsx";
+import Profile from "./components/Profile/Profile.tsx";
 
 interface PrivateRouteProps {
   children: ReactNode;
@@ -36,6 +38,16 @@ const App: React.FC = () => {
         <Route path="/signin" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/services" element={<ServiceSection />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route
+          path="/patientDashboard"
+          element={
+            <PrivateRoute>
+              <PatientDashboard />
+            </PrivateRoute>
+          }
+        />
+
         <Route
           path="/admin-dashboard"
           element={
