@@ -2,10 +2,12 @@
 
 import type React from "react";
 import { useState } from "react";
-import { Edit2, Link } from "lucide-react";
+import { Link } from "lucide-react";
 import "./EditProfile.css";
+import { useNavigate } from "react-router-dom";
 
 export default function EditProfile() {
+  const navigate = useNavigate();
   const [profileData, setProfileData] = useState({
     name: "John Doe",
     email: "johndoe@example.com",
@@ -47,18 +49,24 @@ export default function EditProfile() {
   const handleSave = () => {
     console.log("Saving profile:", profileData);
   };
+  const handleCancel = () => {
+    navigate("/profile");
+  };
 
   return (
     <div className="edit-profile-container">
       <div className="edit-profile-modal">
-        <div className="modal-content">
-          <p>Make changes to your profile here. Click save when you're done.</p>
+        <h1 className="modal-title">Edit Profile</h1>
+        <p className="modal-description">
+          Make changes to your profile here. Click save when you&apos;re done.
+        </p>
 
-          <div className="profile">
-            <div className="profile-section">
+        <div className="modal-content">
+          <div className="profile-section">
+            <div className="profile">
               <img
                 className="profile-image"
-                src={profileData.profilePicture}
+                src={profileData.profilePicture || "/placeholder.svg"}
                 alt="Profile"
               />
               <div className="profile-inputs">
@@ -66,6 +74,7 @@ export default function EditProfile() {
                   type="file"
                   accept="image/*"
                   onChange={handleFileUpload}
+                  className="file-input"
                 />
                 <div className="url-upload">
                   <input
@@ -81,7 +90,8 @@ export default function EditProfile() {
               </div>
             </div>
           </div>
-          <div className="input-filed">
+
+          <div className="form-section">
             <div className="input-group">
               <label>Name</label>
               <input
@@ -118,17 +128,19 @@ export default function EditProfile() {
                 name="address"
                 value={profileData.address}
                 onChange={handleInputChange}
+                rows={4}
               ></textarea>
             </div>
           </div>
         </div>
-        <div className="container">
-          <div className="button-group">
-            <button className="save-button" onClick={handleSave}>
-              Save Changes
-            </button>
-            <button className="cancel-button">Cancel</button>
-          </div>
+
+        <div className="button-group">
+          <button className="cancel-button" onClick={handleCancel}>
+            Cancel
+          </button>
+          <button className="save-button" onClick={handleSave}>
+            Save Changes
+          </button>
         </div>
       </div>
     </div>
