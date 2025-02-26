@@ -1,0 +1,89 @@
+/* Card styles */
+.card {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+}
+
+.card-header {
+  border-bottom: 1px solid #e5e7eb;
+  padding-bottom: 8px;
+  margin-bottom: 12px;
+}
+
+.card-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+/* Search input styles */
+.search-container {
+  position: relative;
+  margin-bottom: 16px;
+}
+
+.search-icon {
+  position: absolute;
+  left: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  color: #6b7280;
+}
+
+.search-input {
+  width: 100%;
+  padding: 8px 8px 8px 32px;
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+  outline: none;
+  font-size: 1rem;
+}
+
+.search-input:focus {
+  border-color: #3b82f6;
+}
+
+/* Scrollable area */
+.scroll-area {
+  max-height: 400px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+/* Patient list */
+.patient-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Individual patient card */
+.patient-card {
+  padding: 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s ease-in-out;
+}
+
+.patient-card:hover {
+  background: #f3f4f6;
+}
+
+/* Patient details */
+.patient-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.patient-name {
+  font-weight: 500;
+}
+
+.patient-details {
+  font-size: 0.875rem;
+  color: #6b7280;
+}

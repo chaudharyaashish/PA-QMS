@@ -9,6 +9,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import Login from "./components/Login/Login";
 import ServiceSection from "./pages/ServiceSection/Services.tsx";
 import AdminDashboard from "./components/Admin/AdminDashboard";
+import DoctorDashboard from "./pages/DoctoraDashboard/DoctorDashboar.tsx";
 import LandingPage from "./pages/LandingPage/LandingPage.tsx";
 import { auth } from "./firebaseConfig.ts";
 import Signup from "./components/Signup/Signup.tsx";
@@ -45,6 +46,7 @@ const App: React.FC = () => {
         <Route path="/edit-profile" element={<EditProfile />} />
         <Route path="/settings" element={<Settings />} />
         <Route path="/logout" element={<Logout />} />
+
         <Route
           path="/patientDashboard"
           element={
@@ -55,10 +57,19 @@ const App: React.FC = () => {
         />
 
         <Route
-          path="/admin-dashboard"
+          path="/adminDashboard"
           element={
             <PrivateRoute>
               <AdminDashboard />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path="/doctorDashboard"
+          element={
+            <PrivateRoute>
+              <DoctorDashboard />
             </PrivateRoute>
           }
         />

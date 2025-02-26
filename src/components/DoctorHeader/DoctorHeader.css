@@ -1,0 +1,81 @@
+/* Header container */
+.dashboard-header {
+  border-bottom: 1px solid #e5e7eb;
+  background-color: #ffffff;
+}
+
+.header-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Logo */
+.logo-text {
+  font-size: 1.25rem;
+  font-weight: bold;
+  text-decoration: none;
+  color: #111827;
+}
+
+/* Header actions */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Notification button */
+.notification-btn {
+  position: relative;
+}
+
+.notification-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  height: 16px;
+  width: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: red;
+  color: white;
+  font-size: 0.75rem;
+  border-radius: 50%;
+}
+
+/* Notification dropdown */
+.notification-menu {
+  width: 320px;
+}
+
+.notification-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.notification-item .title {
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.notification-item .time {
+  font-size: 0.75rem;
+  color: #6b7280;
+}
+
+/* Icons */
+.icon {
+  width: 20px;
+  height: 20px;
+  color: #374151;
+}
+
+.icon:hover {
+  color: #1f2937;
+}

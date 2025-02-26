@@ -1,0 +1,107 @@
+/* Card styles */
+.card {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+}
+
+.card-header {
+  border-bottom: 1px solid #e5e7eb;
+  padding-bottom: 8px;
+  margin-bottom: 12px;
+}
+
+.card-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+/* Scrollable area */
+.scroll-area {
+  max-height: 400px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+/* Schedule list */
+.schedule-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Individual schedule item */
+.schedule-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  align-items: center;
+}
+
+.schedule-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.schedule-details .time {
+  font-weight: 500;
+}
+
+.schedule-details .patient,
+.schedule-details .type {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+/* Priority badges */
+.priority-badge {
+  display: inline-block;
+  padding: 4px 8px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  border-radius: 4px;
+}
+
+.high-priority {
+  background-color: #fee2e2;
+  color: #b91c1c;
+}
+
+.medium-priority {
+  background-color: #fef3c7;
+  color: #b45309;
+}
+
+.low-priority {
+  background-color: #d1fae5;
+  color: #047857;
+}
+
+.default-priority {
+  background-color: #f3f4f6;
+  color: #374151;
+}
+
+/* Status badges */
+.badge {
+  display: inline-block;
+  padding: 4px 8px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  border-radius: 4px;
+  background-color: #e5e7eb;
+  color: #374151;
+}
+
+.badge.secondary {
+  background-color: #d1d5db;
+}
+
+.badge.outline {
+  border: 1px solid #9ca3af;
+  background-color: transparent;
+  color: #6b7280;
+}

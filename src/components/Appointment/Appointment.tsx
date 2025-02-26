@@ -1,4 +1,4 @@
-import { Bell } from "lucide-react";
+import { Bell, User, Settings } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import "./Appointment.css";
 
@@ -18,12 +18,11 @@ export default function Appointment() {
               </span>
             </div>
             <div className="header-actions">
-              <button className="text" onClick={() => navigate("/profile")}>
-                Profile
-              </button>
-              <button className="text" onClick={() => navigate("/settings")}>
-                Setting
-              </button>
+              <User className="icon" onClick={() => navigate("/profile")} />
+              <Settings
+                className="icon"
+                onClick={() => navigate("/settings")}
+              />
               <Bell className="icon" />
             </div>
           </div>

@@ -57,16 +57,13 @@ export default function Signin() {
         // Redirect user based on stored user type
         switch (storedUserType) {
           case "admin":
-            navigate("/admin-dashboard");
+            navigate("/adminDashboard");
             break;
           case "doctor":
-            navigate("/doctor-dashboard");
+            navigate("/doctorDashboard");
             break;
           case "patient":
             navigate("/patientDashboard");
-            break;
-          default:
-            navigate("/dashboard");
         }
       } else {
         toast.error("User data not found!");
