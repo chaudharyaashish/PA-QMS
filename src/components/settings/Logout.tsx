@@ -4,12 +4,20 @@ import "./Logout.css";
 export default function Logout() {
   const navigate = useNavigate();
 
+  // Retrieve the user type from localStorage (or any global state)
+  const userType = localStorage.getItem("userType"); // Assumes 'doctor' or 'patient'
+
   const handleLogout = () => {
+    localStorage.removeItem("userType"); // Optional: Clear user data on logout
     navigate("/");
   };
 
   const handleCancel = () => {
-    navigate("/patientDashboard");
+    if (userType === "doctor") {
+      navigate("/doctorDashboard");
+    } else {
+      navigate("/patientDashboard");
+    }
   };
 
   return (
