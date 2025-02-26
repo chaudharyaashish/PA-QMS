@@ -1,19 +1,28 @@
-import { Mail, Phone, MapPin, Edit2 } from "lucide-react";
-import "./Profile.css"; // Import the CSS file
+import { Mail, Phone, MapPin, Edit2, X } from "lucide-react"; 
+import "./Profile.css";
 import { useNavigate } from "react-router-dom";
 
 export default function Profile() {
   const navigate = useNavigate();
 
   const handleEditProfile = () => {
-    navigate("/edit-profile"); 
+    navigate("/edit-profile");
+  };
+
+  const handleCancel = () => {
+    console.log("Cancel button clicked");
+    navigate("/PatientDashboard");
   };
 
   return (
     <div className="profile-container">
       <div className="profile-card">
         {/* Background Header */}
-        <div className="profile-header"></div>
+        <div className="profile-header">
+          <div className="cancel" onClick={handleCancel}>
+            <X className="cancel-icon" />
+          </div>
+        </div>
 
         {/* Profile Avatar */}
         <div className="profile-avatar">

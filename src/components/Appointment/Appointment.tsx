@@ -1,7 +1,6 @@
 import { Bell } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import "./Appointment.css";
-import Profile from "../../components/Profile/Profile";
 
 export default function Appointment() {
   const navigate = useNavigate();
@@ -22,7 +21,9 @@ export default function Appointment() {
               <button className="text" onClick={() => navigate("/profile")}>
                 Profile
               </button>
-              <button className="text">Setting</button>
+              <button className="text" onClick={() => navigate("/settings")}>
+                Setting
+              </button>
               <Bell className="icon" />
             </div>
           </div>
@@ -98,9 +99,6 @@ export default function Appointment() {
               />
             </div>
           </div>
-        </div>
-        <div className="profile-section">
-          <Profile />
         </div>
       </main>
     </div>

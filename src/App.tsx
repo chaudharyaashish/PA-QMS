@@ -15,6 +15,8 @@ import Signup from "./components/Signup/Signup.tsx";
 import PatientDashboard from "./pages/PatientDashboard/PatientDashboard.tsx";
 import Profile from "./components/Profile/Profile.tsx";
 import EditProfile from "./components/EditProfile/EditProfile.tsx";
+import Settings from "./components/settings/Settings.tsx";
+import Logout from "./components/settings/Logout.tsx";
 
 interface PrivateRouteProps {
   children: ReactNode;
@@ -41,6 +43,8 @@ const App: React.FC = () => {
         <Route path="/services" element={<ServiceSection />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/edit-profile" element={<EditProfile />} />
+        <Route path="/settings" element={<Settings />} />
+        <Route path="/logout" element={<Logout />} />
         <Route
           path="/patientDashboard"
           element={
