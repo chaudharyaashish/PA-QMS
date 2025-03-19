@@ -25,14 +25,14 @@ export default function AppointmentManagement() {
               <button
                 type="button"
                 className="date-button"
-                onClick={() => dateInputRef.current?.showPicker()} // Use ref instead of getElementById
+                onClick={() => dateInputRef.current?.showPicker()} 
               >
                 <CalendarIcon className="icon" />
                 {date ? format(date, "PPP") : <span>Pick a date</span>}
               </button>
               <input
                 type="date"
-                ref={dateInputRef} // Attach ref here
+                ref={dateInputRef} 
                 className="hidden-input"
                 onChange={(e) => setDate(new Date(e.target.value))}
               />

@@ -1,7 +1,7 @@
 /* Header container */
 .dashboard-header {
   border-bottom: 1px solid #e5e7eb;
-  background-color: #ffffff;
+  background-color: rgb(138, 153, 170);
 }
 
 .header-container {

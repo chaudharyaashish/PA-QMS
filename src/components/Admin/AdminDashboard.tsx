@@ -1,6 +1,6 @@
 import Sidebar from "../../components/Admin/sidebar/Sidebar";
 import Header from "../../components/Admin/header/Header";
-import ".admin.css"
+import "./admin.css";
 
 export default function AdminDashboard() {
   return (
@@ -63,19 +63,25 @@ export default function AdminDashboard() {
                     <td>John Doe</td>
                     <td>Dr. Smith</td>
                     <td>10:00 AM</td>
-                    <td><span className="status scheduled">Scheduled</span></td>
+                    <td>
+                      <span className="status scheduled">Scheduled</span>
+                    </td>
                   </tr>
                   <tr>
                     <td>Jane Doe</td>
                     <td>Dr. Brown</td>
                     <td>10:30 AM</td>
-                    <td><span className="status checked-in">Checked In</span></td>
+                    <td>
+                      <span className="status checked-in">Checked In</span>
+                    </td>
                   </tr>
                   <tr>
                     <td>Mike Johnson</td>
                     <td>Dr. White</td>
                     <td>11:00 AM</td>
-                    <td><span className="status completed">Completed</span></td>
+                    <td>
+                      <span className="status completed">Completed</span>
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -84,5 +90,5 @@ export default function AdminDashboard() {
         </main>
       </div>
     </div>
-  )
+  );
 }

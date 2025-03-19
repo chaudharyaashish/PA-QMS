@@ -1,7 +1,7 @@
 /* Main container */
 .doctor-dashboard {
   min-height: 100vh;
-  background-color: var(--background, #f8f9fa);
+  background-color: rgb(232, 233, 237);
 }
 
 /* Main content area */

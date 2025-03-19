@@ -19,6 +19,9 @@ export default function LandingPage() {
 
             {/* Navigation Links */}
             <div className="navbar-links">
+              <Link to="/" className="nav-link">
+                Home
+              </Link>
               <Link to="/services" className="nav-link">
                 Services
               </Link>
