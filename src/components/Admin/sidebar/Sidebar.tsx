@@ -11,19 +11,19 @@ export function Sidebar() {
         <h1>Admin Panel</h1>
       </div>
       <nav className="sidebar-menu">
-        <button onClick={() => navigate("/admin/dashboard")} className="sidebar-item">
+        <button onClick={() => navigate("/dashboard")} className="sidebar-item">
           <List className="icon" />
           Dashboard
         </button>
-        <button onClick={() => navigate("/admin/users")} className="sidebar-item">
+        <button onClick={() => navigate("/patientManagement")} className="sidebar-item">
           <Users className="icon" />
           Patient Management
         </button>
-        <button onClick={() => navigate("/admin/appointments")} className="sidebar-item">
+        <button onClick={() => navigate("/appointmentManagement")} className="sidebar-item">
           <Calendar className="icon" />
-          Appointment Management
+          Appintment Management
         </button>
-        <button onClick={() => navigate("/admin/queue")} className="sidebar-item">
+        <button onClick={() => navigate("/queueManagement")} className="sidebar-item">
           <List className="icon" />
           Queue Management
         </button>

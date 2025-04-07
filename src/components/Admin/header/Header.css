@@ -5,10 +5,10 @@
 
 .header-container {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
   margin: 0px;
   background: rgb(138, 153, 170);
+  position: sticky;
+  top:0;
 }
 
 .header-title {

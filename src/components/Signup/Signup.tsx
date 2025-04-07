@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { type FormEvent, useState } from "react";
+import { FormEvent, useState } from "react";
 import img from "../../images/doctor.png";
 import OAuth from "../Login/oauth";
 import {
@@ -8,84 +8,87 @@ import {
   getAuth,
   updateProfile,
 } from "firebase/auth";
-import { db } from "../../firebaseConfig";
-import { doc, serverTimestamp, setDoc } from "firebase/firestore";
 import { toast, ToastContainer } from "react-toastify";
 import { FirebaseError } from "firebase/app";
+import axios from "axios";
 import "./Signup.css";
 
 export default function Signup() {
-  const [userType, setUserType] = useState<string>("patient");
-  const [name, setName] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [confirmPassword, setConfirmPassword] = useState<string>(""); // Added confirmPassword
+  const [userType, setUserType] = useState("patient");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [specialist, setSpecialist] = useState("");
+  const [certification, setCertification] = useState("");
+
   const navigate = useNavigate();
 
-  const onSubmit = async (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
     if (password !== confirmPassword) {
-      toast.error("Passwords do not match!"); // Fixed error message
+      toast.error("Passwords do not match!");
       return;
     }
 
     try {
+      // Firebase Auth: Create user
       const auth = getAuth();
-      const userCredentials = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      const user = userCredentials.user;
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
 
+      // Set display name
       await updateProfile(user, { displayName: name });
 
-      // Save user in Firestore
-      await setDoc(doc(db, "users", user.uid), {
+      // Send user data to backend (MySQL)
+      await axios.post("http://localhost:5000/api/auth/signup", {
+        uid: user.uid,
         name,
         email,
-        userType, // Added userType to Firestore
-        createdAt: serverTimestamp(),
+        userType,
+        specialist: userType === "doctor" ? specialist : undefined,
+        certification: userType === "doctor" ? certification : undefined,
       });
 
-      toast.success("User Created Successfully!");
+      toast.success("Account created successfully!");
       navigate("/signin");
     } catch (error) {
       if (error instanceof FirebaseError) {
-        switch (error?.code) {
+        switch (error.code) {
           case AuthErrorCodes.EMAIL_EXISTS:
             toast.error("Email already in use");
             break;
           default:
-            toast.error("Something went wrong with the registration");
-            break;
+            toast.error("Error during signup");
+            console.error(error);
         }
+      } else if (axios.isAxiosError(error)) {
+        toast.error(error.response?.data?.error || "Backend error");
+      } else {
+        console.error("Unexpected error:", error);
+        toast.error("An unexpected error occurred");
       }
     }
   };
 
   return (
     <div className="signup-container">
-      {/* Left Section */}
+      {/* Left Side */}
       <div className="signup-left">
         <div className="signup-left-content">
           <h2>Welcome</h2>
           <p>Join us today!</p>
           <div className="signup-icon">
-            <img
-              src={img}
-              alt="key photo"
-              className="rounded-xl"
-              loading="lazy"
-            />
+            <img src={img} alt="doctor" className="rounded-xl" loading="lazy" />
           </div>
         </div>
       </div>
 
-      {/* Right Section */}
+      {/* Right Side */}
       <div className="signup-right">
         <div className="signup-form-container">
+          {/* Logo */}
           <div className="signup-logo">
             <span className="font-semibold">
               <span className="text-purple">PA</span> &{" "}
@@ -93,11 +96,13 @@ export default function Signup() {
             </span>
           </div>
 
+          {/* Title */}
           <div className="signup-title">
-            <h1>CREATE ACCOUNT</h1>
+            <h1>Create Account</h1>
           </div>
 
-          <form onSubmit={onSubmit} className="signup-form">
+          {/* Form */}
+          <form onSubmit={handleSubmit} className="signup-form">
             <select
               className="signup-input"
               value={userType}
@@ -116,6 +121,7 @@ export default function Signup() {
               onChange={(e) => setName(e.target.value)}
               required
             />
+
             <input
               type="email"
               className="signup-input"
@@ -124,6 +130,7 @@ export default function Signup() {
               onChange={(e) => setEmail(e.target.value)}
               required
             />
+
             <input
               type="password"
               className="signup-input"
@@ -132,6 +139,7 @@ export default function Signup() {
               onChange={(e) => setPassword(e.target.value)}
               required
             />
+
             <input
               type="password"
               className="signup-input"
@@ -141,12 +149,32 @@ export default function Signup() {
               required
             />
 
+            {/* Additional fields for doctors */}
+            {userType === "doctor" && (
+              <>
+                <input
+                  type="text"
+                  className="signup-input"
+                  placeholder="Specialization"
+                  value={specialist}
+                  onChange={(e) => setSpecialist(e.target.value)}
+                />
+                <input
+                  type="text"
+                  className="signup-input"
+                  placeholder="Certification"
+                  value={certification}
+                  onChange={(e) => setCertification(e.target.value)}
+                />
+              </>
+            )}
+
             <button type="submit" className="signup-button">
-              Signup
+              Sign Up
             </button>
 
             <div className="signup-divider">
-              <span className="divider-text">SignUp with Others</span>
+              <span className="divider-text">Sign up with Others</span>
             </div>
 
             <OAuth />
@@ -160,6 +188,7 @@ export default function Signup() {
           </form>
         </div>
       </div>
+
       <ToastContainer />
     </div>
   );

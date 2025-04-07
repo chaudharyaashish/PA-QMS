@@ -66,6 +66,12 @@ export default function LandingPage() {
             medical professionals, cutting-edge technology, and compassionate
             approach make us a leader in the healthcare industry.
           </p>
+          <div className="book-app">
+            {/* Book Appointment Button */}
+            <Link to="/book-appointment" className="btn-book-appointment">
+            Book Appointment
+            </Link>
+          </div>
         </div>
 
         {/* Right Side - Image */}
@@ -78,7 +84,7 @@ export default function LandingPage() {
           />
         </div>
 
-        {/* Bottom - Search Section */}
+        {/* Bottom - Search Section
         <div className="search-box">
           <p className="service-text">24/7 Service</p>
           <h3 className="search-title">Find a Doctor</h3>
@@ -96,7 +102,7 @@ export default function LandingPage() {
             />
             <button className="search-button">Search</button>
           </div>
-        </div>
+        </div> */}
       </section>
     </>
   );

@@ -1,13 +1,13 @@
 .sidebar {
-  width: 16rem;
+  width: 20rem;
   background-color: rgb(186, 195, 239);
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
   height: 100vh;
 }
-
+/* 
 .sidebar-header {
   padding: 24px;
-}
+} */
 
 .sidebar-header h1 {
   font-size: 20px;
@@ -23,7 +23,7 @@
 .sidebar-item {
   display: flex;
   align-items: center;
-  padding: 12px 24px;
+  padding: 12px 20px;
   color: #374151;
   text-decoration: none;
   transition: background 0.3s ease, color 0.3s ease;

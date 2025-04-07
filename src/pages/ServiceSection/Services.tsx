@@ -26,7 +26,8 @@ const services = [
 ];
 
 export function ServicesSection() {
-  return (
+  return (<>
+ 
     <section className="services-container">
       <div className="services-header">
         <h2>Services we provide</h2>
@@ -40,7 +41,7 @@ export function ServicesSection() {
         {services.map((service) => (
           <div key={service.title} className="service-card">
             <img
-              src={service.image} // Use a valid image path or URL
+              src={service.image} 
               alt={service.title}
               className="service-image"
             />
@@ -55,6 +56,7 @@ export function ServicesSection() {
         ))}
       </div>
     </section>
+    </>
   );
 }
 export default ServicesSection;
