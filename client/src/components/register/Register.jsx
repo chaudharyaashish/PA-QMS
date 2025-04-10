@@ -1,9 +1,9 @@
 import React, { useState, useContext } from "react";
 import { Form, Button, Card, Alert, Row, Col } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
-import { AuthContext } from "../context/AuthContext";
+import { AuthContext } from "../../context/AuthContext";
 import { toast, ToastContainer } from "react-toastify";
-import img from "../Images/doctor.png";
+import img from "../../Images/doctor.png"
 import "./Register.css";
 
 const Register = () => {

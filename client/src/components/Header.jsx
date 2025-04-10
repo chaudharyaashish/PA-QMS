@@ -20,11 +20,22 @@ const Header = () => {
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="ms-auto">
+
+          {/* Centered Home and Services */}
+          <Nav className="mx-auto d-flex justify-content-center">
             <Nav.Link as={Link} to="/">
               Home
             </Nav.Link>
+            <Nav.Link as={Link} to="/services">
+              Services
+            </Nav.Link>
+            <Nav.Link as={Link} to="/">
+              Contact Us
+            </Nav.Link>
+          </Nav>
 
+          {/* Right-side Nav Items */}
+          <Nav className="ms-auto">
             {currentUser ? (
               <>
                 {currentUser.role === "user" && (
@@ -35,32 +46,27 @@ const Header = () => {
                     <Nav.Link as={Link} to="/user/appointments">
                       My Appointments
                     </Nav.Link>
-                    {/* <Nav.Link as={Link} to="/doctor/register">Register as Doctor</Nav.Link> */}
                   </>
                 )}
 
                 {currentUser.role === "doctor" && (
-                  <>
-                    <Nav.Link as={Link} to="/doctor/appointments">
-                      Manage Appointments
-                    </Nav.Link>
-                  </>
+                  <Nav.Link as={Link} to="/doctor/appointments">
+                    Manage Appointments
+                  </Nav.Link>
                 )}
 
                 {currentUser.role === "admin" && (
-                  <>
-                    <NavDropdown title="Admin" id="admin-dropdown">
-                      <NavDropdown.Item as={Link} to="/admin/doctors">
-                        Manage Doctors
-                      </NavDropdown.Item>
-                      <NavDropdown.Item as={Link} to="/admin/users">
-                        Manage Users
-                      </NavDropdown.Item>
-                      <NavDropdown.Item as={Link} to="/admin/appointments">
-                        All Appointments
-                      </NavDropdown.Item>
-                    </NavDropdown>
-                  </>
+                  <NavDropdown title="Admin" id="admin-dropdown">
+                    <NavDropdown.Item as={Link} to="/admin/doctors">
+                      Manage Doctors
+                    </NavDropdown.Item>
+                    <NavDropdown.Item as={Link} to="/admin/users">
+                      Manage Users
+                    </NavDropdown.Item>
+                    <NavDropdown.Item as={Link} to="/admin/appointments">
+                      All Appointments
+                    </NavDropdown.Item>
+                  </NavDropdown>
                 )}
 
                 <NavDropdown title={currentUser.name} id="user-dropdown">
@@ -95,6 +101,7 @@ const Header = () => {
               </>
             )}
           </Nav>
+
         </Navbar.Collapse>
       </Container>
     </Navbar>

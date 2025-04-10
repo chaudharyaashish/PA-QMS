@@ -15,21 +15,17 @@ import Footer from "./components/Footer";
 
 // Pages
 import Home from "./components/Home";
+import Services from "./components/services/Services";
 import Login from "./components/Login";
-import Register from "./components/Register";
-
+import Register from "./components/register/Register.jsx";
 import UserDashboard from "./pages/user/Dashboard.jsx";
 import DoctorDashboard from "./pages/doctor/Dashboard.jsx";
 import AdminDashboard from "./pages/admin/Dashboard.jsx";
-
 import DoctorRegistration from "./pages/doctor/DoctorRegistration.jsx";
-
 import BookAppointment from "./pages/user/BookAppointment.jsx";
 import UserAppointments from "./pages/user/Appointments.jsx";
-
 import DoctorAppointments from "./pages/doctor/Appointments.jsx";
 import DoctorProfile from "./pages/doctor/Profile.jsx";
-
 import UserProfile from "./pages/user/Profile.jsx";
 import AdminDoctors from "./pages/admin/Doctors.jsx";
 import AdminUsers from "./pages/admin/Users.jsx";
@@ -52,6 +48,7 @@ function App() {
               <Routes>
                 {/* Public routes */}
                 <Route path="/" element={<Home />} />
+                <Route path="/services" element={<Services/>}/>
                 <Route
                   path="/login"
                   element={

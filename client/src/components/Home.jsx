@@ -54,7 +54,7 @@ const Home = () => {
           <img
             src={img}
             alt="Healthcare"
-            className="img-fluid rounded shadow"
+            className="img-fluid"
           />
         </Col>
       </Row>
