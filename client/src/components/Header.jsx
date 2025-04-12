@@ -25,13 +25,10 @@ const Header = () => {
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-
-          {/* Centered Home and Services */}
-          <Nav className="mx-auto d-flex justify-content-center">
+          <Nav className="mx-auto d-flex">
             <Nav.Link as={Link} to="/home">
               Home
             </Nav.Link>
-            <Nav.Link as={Link} to="/contact">Contact Us</Nav.Link>
 
           </Nav>
 
@@ -50,11 +47,7 @@ const Header = () => {
                   </>
                 )}
 
-                {/* {currentUser.role === "doctor" && (
-                  <Nav.Link as={Link} to="/doctor/appointments">
-                    Manage Appointments
-                  </Nav.Link>
-                )} */}
+                
 
                 {currentUser.role === "admin" && (
                   <NavDropdown title="Admin" id="admin-dropdown">

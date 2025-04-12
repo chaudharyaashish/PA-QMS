@@ -4,6 +4,7 @@ import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import axios from "axios";
 import { API_URL } from "../config";
 import img from "../Images/doctor.png"
+import Contact from "./contact/Contact";
 
 const Home = () => {
   const [doctors, setDoctors] = useState([]);
@@ -155,6 +156,9 @@ const Home = () => {
           </Card>
         </Col>
       </Row>
+      <div className="my-5">
+        <Contact />
+      </div>
     </Container>
   );
 };

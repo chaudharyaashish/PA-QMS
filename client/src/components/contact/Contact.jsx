@@ -143,7 +143,7 @@ const Contact = () => {
         </Col>
       </Row>
 
-      <Row className="justify-content-center mt-4">
+      {/* <Row className="justify-content-center mt-4">
         <Col lg={8}>
           <Card className="shadow-sm">
             <Card.Body>
@@ -224,7 +224,7 @@ const Contact = () => {
             </Card.Body>
           </Card>
         </Col>
-      </Row>
+      </Row> */}
     </Container>
   );
 };
