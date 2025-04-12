@@ -14,5 +14,5 @@ router.get('/profile', authenticateToken, isDoctor, doctorController.getDoctorPr
 router.put('/profile', authenticateToken, isDoctor, doctorController.updateDoctorProfile);
 router.get('/appointments', authenticateToken, isDoctor, doctorController.getDoctorAppointments);
 router.put('/appointments', authenticateToken, isDoctor, doctorController.updateAppointmentStatus);
-
+router.get('/me', authenticateToken, isDoctor, doctorController.getDoctorProfile)
 module.exports = router;
