@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { API_URL } from '../../config'; // Make sure you have your API_URL defined
+import { API_URL } from '../../config';
 import { Button, Form, Alert, Spinner } from 'react-bootstrap';
+
 
 export default function Profile() {
     const [user, setUser] = useState(null);

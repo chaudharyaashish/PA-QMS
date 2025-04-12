@@ -9,13 +9,11 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-// Components
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 
-// Pages
-import Home from "./components/Home";
-import Services from "./components/services/Services";
+import Home from "./components/Home.jsx";
+import Contact from "./components/contact/Contact.jsx";
 import Login from "./components/Login";
 import Register from "./components/register/Register.jsx";
 import UserDashboard from "./pages/user/Dashboard.jsx";
@@ -47,8 +45,8 @@ function App() {
             <div className="container">
               <Routes>
                 {/* Public routes */}
-                <Route path="/" element={<Home />} />
-                <Route path="/services" element={<Services/>}/>
+                <Route path="/home" element={<Home />} />
+                <Route path="/contact" element={<Contact />} />
                 <Route
                   path="/login"
                   element={

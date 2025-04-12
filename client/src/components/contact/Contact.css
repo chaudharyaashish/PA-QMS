@@ -1,0 +1,48 @@
+.icon-container {
+    width: 50px;
+    height: 50px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #e0ede8;
+    border-radius: 50%;
+  }
+  .py-4 {
+    padding-top: 1.5rem !important;
+    padding-bottom: 1.5rem !important;
+    background: #edf0f0;
+}
+  .card {
+    transition: transform 0.3s ease;
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .has-error .form-control {
+    border-color: #dc3545;
+  }
+  
+  .invalid-feedback {
+    display: block;
+    color: #dc3545;
+  }
+  
+  /* .btn-primary {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+  } */
+  
+  /* .btn-primary:hover {
+    background-color: #0b5ed7;
+    border-color: #0a58ca;
+  } */
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .card {
+      margin-bottom: 20px;
+    }
+  }

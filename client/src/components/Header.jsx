@@ -15,23 +15,24 @@ const Header = () => {
   return (
     <Navbar bg="primary" variant="dark" expand="lg">
       <Container>
-        <Navbar.Brand as={Link} to="/">
-          Doctor Appointment System
+        <Navbar.Brand>
+        <h4>
+          <span style={{ color: '#00ffd5' }}>PA</span> &{' '}
+          <span style={{ color: '#ffcb6b' }}>QMS</span>
+        </h4>
+
+
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
 
           {/* Centered Home and Services */}
           <Nav className="mx-auto d-flex justify-content-center">
-            <Nav.Link as={Link} to="/">
+            <Nav.Link as={Link} to="/home">
               Home
             </Nav.Link>
-            <Nav.Link as={Link} to="/services">
-              Services
-            </Nav.Link>
-            <Nav.Link as={Link} to="/">
-              Contact Us
-            </Nav.Link>
+            <Nav.Link as={Link} to="/contact">Contact Us</Nav.Link>
+
           </Nav>
 
           {/* Right-side Nav Items */}
@@ -49,11 +50,11 @@ const Header = () => {
                   </>
                 )}
 
-                {currentUser.role === "doctor" && (
+                {/* {currentUser.role === "doctor" && (
                   <Nav.Link as={Link} to="/doctor/appointments">
                     Manage Appointments
                   </Nav.Link>
-                )}
+                )} */}
 
                 {currentUser.role === "admin" && (
                   <NavDropdown title="Admin" id="admin-dropdown">
@@ -79,11 +80,6 @@ const Header = () => {
                   <NavDropdown.Item as={Link} to="/user/profile">
                     My Profile
                   </NavDropdown.Item>
-                  {currentUser.role === "doctor" && (
-                    <NavDropdown.Item as={Link} to="/doctor/profile">
-                      Doctor Profile
-                    </NavDropdown.Item>
-                  )}
                   <NavDropdown.Divider />
                   <NavDropdown.Item onClick={handleLogout}>
                     Logout

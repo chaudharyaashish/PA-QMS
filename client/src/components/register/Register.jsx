@@ -76,15 +76,6 @@ const Register = () => {
       {/* Right Side */}
       <div className="signup-right">
         <div className="signup-form-container">
-          {/* Logo */}
-          <div className="signup-logo">
-            <span className="font-semibold">
-              <span className="text-purple">PA</span> &{" "}
-              <span className="text-green">QMS</span>
-            </span>
-          </div>
-
-          {/* Title */}
           <div className="signup-title">
             <h1>Create Account</h1>
           </div>

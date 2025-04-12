@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Table, Spinner, Alert } from 'react-bootstrap';
+import { Table, Spinner, Alert, Button } from 'react-bootstrap';
 import { API_URL } from '../../config';
+import { Link } from 'react-router-dom';
 
 export default function Appointments() {
     const [appointments, setAppointments] = useState([]);
@@ -31,6 +32,27 @@ export default function Appointments() {
         }
     };
 
+    const handleCancel = async (appointmentId) => {
+        const confirm = window.confirm("Are you sure you want to cancel this appointment?");
+        if (!confirm) return;
+
+        try {
+            const token = localStorage.getItem('token');
+            const config = {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            };
+
+            await axios.delete(`${API_URL}/api/appointments/${appointmentId}`, config);
+            setAppointments(prev => prev.filter(appt => appt.id !== appointmentId));
+            alert("Appointment cancelled.");
+        } catch (err) {
+            console.error("Cancellation error:", err);
+            alert("Failed to cancel appointment.");
+        }
+    };
+
     if (loading) return <Spinner animation="border" />;
 
     return (
@@ -50,10 +72,11 @@ export default function Appointments() {
                             <th>Time</th>
                             <th>Reason</th>
                             <th>Status</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {appointments && appointments.map((appt, index) => (
+                        {appointments.map((appt, index) => (
                             <tr key={appt.id}>
                                 <td>{index + 1}</td>
                                 <td>{appt.Doctor?.User?.name}</td>
@@ -61,7 +84,27 @@ export default function Appointments() {
                                 <td>{appt.appointmentDate}</td>
                                 <td>{appt.appointmentTime}</td>
                                 <td>{appt.reason}</td>
-                                <td>{appt.status}</td>
+                                <td>
+                                    <span className={`badge ${appt.status === 'approved' ? 'bg-success' : 'bg-warning'}`}>
+                                        {appt.status}
+                                    </span>
+                                </td>
+                                <td>
+                                    <div className="d-flex gap-2">
+                                        <Button
+                                            variant="outline-danger"
+                                            size="sm"
+                                            onClick={() => handleCancel(appt.id)}
+                                        >
+                                            Cancel
+                                        </Button>
+                                        <Link to={`/user/reschedule/${appt.id}`}>
+                                            <Button variant="outline-secondary" size="sm">
+                                                Reschedule
+                                            </Button>
+                                        </Link>
+                                    </div>
+                                </td>
                             </tr>
                         ))}
                     </tbody>
