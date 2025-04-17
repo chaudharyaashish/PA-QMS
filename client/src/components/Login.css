@@ -1,0 +1,81 @@
+.login-container {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  .login-left {
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    border-top-left-radius: 1.5rem;
+    border-bottom-left-radius: 1.5rem;
+  }
+  
+  .login-form-container {
+    width: 100%;
+    max-width: 28rem;
+    text-align: center;
+  }
+  
+  .login-title h1 {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  .login-footer {
+    font-size: 0.875rem;
+  }
+  
+  .signup-link {
+    color: #7c3aed;
+    text-decoration: none;
+  }
+  
+  .login-right {
+    display: none;
+    background-color: #7c3aed;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    border-top-right-radius: 1.5rem;
+    border-bottom-right-radius: 1.5rem;
+  }
+  
+  @media (min-width: 768px) {
+    .login-right {
+      display: flex;
+    }
+  }
+  
+  .login-right-content {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 1.5rem;
+    padding: 5rem;
+    text-align: center;
+    max-width: 30rem;
+  }
+  
+  .login-right-content h2 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+  }
+  
+  .login-right-content p {
+    font-size: 1.25rem;
+    color: white;
+  }
+  
+  .login-icon {
+    width: 15rem;
+    height: 20rem;
+    position: relative;
+    top: 78px;
+  }
+  

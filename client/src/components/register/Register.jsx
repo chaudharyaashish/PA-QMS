@@ -66,7 +66,7 @@ const Register = () => {
       <div className="signup-left">
         <div className="signup-left-content">
           <h2>Welcome</h2>
-          <p>Join us today!</p>
+          <p>Join us today! for easy appointment</p>
           <div className="signup-icon">
             <img src={img} alt="doctor" className="rounded-xl" loading="lazy" />
           </div>

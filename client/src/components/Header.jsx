@@ -25,15 +25,12 @@ const Header = () => {
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="mx-auto d-flex">
-            <Nav.Link as={Link} to="/home">
-              Home
-            </Nav.Link>
-
-          </Nav>
 
           {/* Right-side Nav Items */}
           <Nav className="ms-auto">
+          <Nav.Link as={Link} to="/home">
+              Home
+            </Nav.Link>
             {currentUser ? (
               <>
                 {currentUser.role === "user" && (

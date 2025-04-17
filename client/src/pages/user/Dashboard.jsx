@@ -4,26 +4,27 @@ import { Link } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
 import axios from 'axios';
 import { API_URL } from '../../config';
+import io from 'socket.io-client';
 
 const UserDashboard = () => {
     const { currentUser } = useContext(AuthContext);
     const [appointments, setAppointments] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [prescriptions, setPrescriptions] = useState([]);
     const [queuePosition, setQueuePosition] = useState(null);
     const [estimatedTime, setEstimatedTime] = useState(null);
+    const [loading, setLoading] = useState(true);
     const [queueLoading, setQueueLoading] = useState(true);
+    const [chatMessages, setChatMessages] = useState([]);
+    const [newMessage, setNewMessage] = useState('');
+    const [socket, setSocket] = useState(null);
 
-    // Fetch Appointments
     useEffect(() => {
         const fetchAppointments = async () => {
             try {
                 const token = localStorage.getItem('token');
                 const config = {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
+                    headers: { Authorization: `Bearer ${token}` }
                 };
-
                 const response = await axios.get(`${API_URL}/api/appointments`, config);
                 setAppointments(response.data);
             } catch (error) {
@@ -32,11 +33,9 @@ const UserDashboard = () => {
                 setLoading(false);
             }
         };
-
         fetchAppointments();
     }, []);
 
-    // Fetch Queue Status
     const refreshQueueStatus = async () => {
         setQueueLoading(true);
         try {
@@ -60,25 +59,76 @@ const UserDashboard = () => {
         refreshQueueStatus();
     }, []);
 
+    const handleSelfCheckIn = async () => {
+        try {
+            const token = localStorage.getItem('token');
+            const config = {
+                headers: { Authorization: `Bearer ${token}` }
+            };
+            const response = await axios.post(`${API_URL}/api/queue/check-in`, {}, config);
+            alert(response.data.message || 'Checked in successfully!');
+            refreshQueueStatus();
+        } catch (error) {
+            alert(error.response?.data?.message || 'Error during self check-in.');
+        }
+    };
+
+    useEffect(() => {
+        const fetchPrescriptions = async () => {
+            try {
+                const token = localStorage.getItem('token');
+                const config = { headers: { Authorization: `Bearer ${token}` } };
+                const response = await axios.get(`${API_URL}/api/prescriptions`, config);
+                setPrescriptions(response.data);
+            } catch (error) {
+                console.error('Error fetching prescriptions:', error);
+            }
+        };
+        fetchPrescriptions();
+    }, []);
+
+    useEffect(() => {
+        const newSocket = io(API_URL, {
+            query: { token: localStorage.getItem('token') }
+        });
+        setSocket(newSocket);
+
+        newSocket.on('receive-message', (msg) => {
+            setChatMessages((prev) => [...prev, msg]);
+        });
+
+        return () => newSocket.disconnect();
+    }, []);
+
+    const sendMessage = () => {
+        if (newMessage.trim() && socket) {
+            socket.emit('send-message', {
+                sender: currentUser.name,
+                message: newMessage
+            });
+            setChatMessages((prev) => [...prev, { sender: 'You', message: newMessage }]);
+            setNewMessage('');
+        }
+    };
+
     const upcomingAppointments = appointments
-        .filter(appointment => appointment.status === 'pending' || appointment.status === 'approved')
+        .filter(app => app.status === 'pending' || app.status === 'approved')
         .sort((a, b) => new Date(a.appointmentDate) - new Date(b.appointmentDate))
         .slice(0, 3);
 
     return (
         <Container>
             <h2 className="mb-4">Welcome, {currentUser?.name}!</h2>
-
             <Row>
+                {/* Left Column */}
                 <Col md={8}>
+                    {/* Upcoming Appointments */}
                     <Card className="mb-4 shadow-sm">
                         <Card.Body>
                             <Card.Title>Upcoming Appointments</Card.Title>
                             {loading ? (
                                 <div className="text-center my-4">
-                                    <div className="spinner-border text-primary" role="status">
-                                        <span className="visually-hidden">Loading...</span>
-                                    </div>
+                                    <div className="spinner-border text-primary" role="status" />
                                 </div>
                             ) : (
                                 <>
@@ -94,14 +144,14 @@ const UserDashboard = () => {
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    {upcomingAppointments.map(appointment => (
-                                                        <tr key={appointment.id}>
-                                                            <td>{appointment.Doctor.User.name}</td>
-                                                            <td>{new Date(appointment.appointmentDate).toLocaleDateString()}</td>
-                                                            <td>{appointment.appointmentTime}</td>
+                                                    {upcomingAppointments.map(app => (
+                                                        <tr key={app.id}>
+                                                            <td>{app.Doctor?.User?.name}</td>
+                                                            <td>{new Date(app.appointmentDate).toLocaleDateString()}</td>
+                                                            <td>{app.appointmentTime}</td>
                                                             <td>
-                                                                <span className={`badge ${appointment.status === 'approved' ? 'bg-success' : 'bg-warning'}`}>
-                                                                    {appointment.status}
+                                                                <span className={`badge ${app.status === 'approved' ? 'bg-success' : 'bg-warning'}`}>
+                                                                    {app.status}
                                                                 </span>
                                                             </td>
                                                         </tr>
@@ -112,7 +162,6 @@ const UserDashboard = () => {
                                     ) : (
                                         <p className="text-center my-4">No upcoming appointments.</p>
                                     )}
-
                                     <div className="text-center mt-3">
                                         <Link to="/user/appointments">
                                             <Button variant="outline-primary">View All Appointments</Button>
@@ -123,6 +172,7 @@ const UserDashboard = () => {
                         </Card.Body>
                     </Card>
 
+                    {/* Book Appointment + Prescriptions */}
                     <Row>
                         <Col md={6}>
                             <Card className="mb-4 shadow-sm">
@@ -138,19 +188,44 @@ const UserDashboard = () => {
                                 </Card.Body>
                             </Card>
                         </Col>
+                        <Col md={6}>
+                            <Card className="mb-4 shadow-sm">
+                                <Card.Body>
+                                    <Card.Title>Recent Prescriptions</Card.Title>
+                                    {prescriptions.length > 0 ? (
+                                        <ul className="list-group">
+                                            {prescriptions.slice(0, 3).map((pres, index) => (
+                                                <li className="list-group-item" key={index}>
+                                                    <strong>Doctor:</strong> {pres.Doctor?.User?.name || 'N/A'}<br />
+                                                    <strong>Date:</strong> {new Date(pres.date).toLocaleDateString()}<br />
+                                                    <strong>Notes:</strong> {pres.notes}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    ) : (
+                                        <p>No prescriptions available.</p>
+                                    )}
+                                    <div className="mt-3 text-center">
+                                        <Link to="/user/prescriptions">
+                                            <Button variant="outline-secondary">View All</Button>
+                                        </Link>
+                                    </div>
+                                </Card.Body>
+                            </Card>
+                        </Col>
                     </Row>
                 </Col>
 
+                {/* Right Column */}
                 <Col md={4}>
+                    {/* Live Queue Status */}
                     <Card className="mb-4 shadow-sm">
                         <Card.Body>
                             <Card.Title>Live Queue Status</Card.Title>
                             <div className="mt-4">
                                 {queueLoading ? (
                                     <div className="text-center">
-                                        <div className="spinner-border text-primary" role="status">
-                                            <span className="visually-hidden">Loading...</span>
-                                        </div>
+                                        <div className="spinner-border text-primary" role="status" />
                                     </div>
                                 ) : (
                                     <>
@@ -159,10 +234,39 @@ const UserDashboard = () => {
                                     </>
                                 )}
                             </div>
-                            <div className="mt-4 text-center">
-                                <Button variant="outline-primary" onClick={refreshQueueStatus}>
-                                    Refresh Status
-                                </Button>
+                            <div className="mt-3 text-center">
+                                <Button variant="outline-primary" onClick={refreshQueueStatus}>Refresh Status</Button>
+                            </div>
+                            <div className="mt-3 text-center">
+                                <Button variant="success" onClick={handleSelfCheckIn}>Self Check-In</Button>
+                            </div>
+                        </Card.Body>
+                    </Card>
+
+                    {/* Chat Section */}
+                    <Card className="mb-4 shadow-sm">
+                        <Card.Body>
+                            <Card.Title>Chat with Doctor</Card.Title>
+                            <div style={{
+                                border: '1px solid #ccc',
+                                padding: '10px',
+                                height: '200px',
+                                overflowY: 'auto',
+                                marginBottom: '10px'
+                            }}>
+                                {chatMessages.map((msg, idx) => (
+                                    <div key={idx}><strong>{msg.sender}:</strong> {msg.message}</div>
+                                ))}
+                            </div>
+                            <div className="d-flex">
+                                <input
+                                    type="text"
+                                    className="form-control me-2"
+                                    placeholder="Type your message..."
+                                    value={newMessage}
+                                    onChange={(e) => setNewMessage(e.target.value)}
+                                />
+                                <Button variant="primary" onClick={sendMessage}>Send</Button>
                             </div>
                         </Card.Body>
                     </Card>

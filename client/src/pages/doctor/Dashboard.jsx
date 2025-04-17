@@ -183,7 +183,7 @@ const DoctorDashboard = () => {
               </div>
             </Card.Body>
           </Card>
-        </Col>
+        </Col> 
       </Row>
 
       {/* Upcoming Appointments */}
@@ -295,7 +295,7 @@ const DoctorDashboard = () => {
             </Card.Body>
           </Card>
         </Col>
-      </Row>
+      </Row> 
       {
         doctor && doctor.isApproved ? "" :
           <Link to={"/doctor/register"}>Verify Doctor</Link>
