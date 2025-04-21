@@ -68,6 +68,7 @@ export default function Doctors() {
                         <th>Phone</th>
                         <th>Address</th>
                         <th>Specialization</th>
+                        <th>Liecense</th>
                         <th>Experience</th>
                         <th>Qualifications</th>
                         <th>Availability</th>
@@ -84,6 +85,7 @@ export default function Doctors() {
                             <td>{doctor.User?.phone}</td>
                             <td>{doctor.User?.address}</td>
                             <td>{doctor.specialization}</td>
+                            <td>{doctor.license}</td>
                             <td>{doctor.experience} yrs</td>
                             <td>{doctor.qualifications}</td>
                             <td>{doctor.availableDays} <br />{doctor.availableTimeStart} - {doctor.availableTimeEnd}</td>
