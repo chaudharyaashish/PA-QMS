@@ -1,7 +1,8 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
+const Doctor = require('../models/Doctor');
 
-const JWT_SECRET = 'your_jwt_secret_key'; // In production, use environment variable
+const JWT_SECRET = 'your_jwt_secret_key';
 
 const authenticateToken = async (req, res, next) => {
     try {
@@ -33,11 +34,24 @@ const isAdmin = (req, res, next) => {
     next();
 };
 
-const isDoctor = (req, res, next) => {
-    if (req.user.role !== 'doctor') {
-        return res.status(403).json({ message: 'Requires doctor privileges' });
+// server/middleware/authMiddleware.js
+const isDoctor = async (req, res, next) => {
+    try {
+        if (req.user.role !== 'doctor') {
+            return res.status(403).json({ message: 'Requires doctor privileges' });
+        }
+
+        // Fetch doctor details
+        const doctor = await Doctor.findOne({ where: { userId: req.user.id } });
+        if (!doctor) {
+            return res.status(404).json({ message: 'Doctor profile not found' });
+        }
+
+        req.doctorId = doctor.id; // Add doctorId to request
+        next();
+    } catch (error) {
+        res.status(500).json({ message: 'Server error', error: error.message });
     }
-    next();
 };
 
 module.exports = { authenticateToken, isAdmin, isDoctor };

@@ -16,6 +16,7 @@ const registerAsDoctor = async (req, res) => {
       license,
     } = req.body;
 
+    console.log(req.body)
     // Check if user is already registered as doctor
     const existingDoctor = await Doctor.findOne({
       where: { userId: req.user.id },
@@ -38,17 +39,13 @@ const registerAsDoctor = async (req, res) => {
       license,
     });
 
-    // Update user role
-    const user = await User.findByPk(req.user.id);
-    user.role = "doctor";
-    await user.save();
-
     res.status(201).json({
       message: "Doctor registration successful. Awaiting admin approval.",
       doctor,
     });
   } catch (error) {
     res.status(500).json({ message: "Server error", error: error.message });
+    console.log(error)
   }
 };
 
