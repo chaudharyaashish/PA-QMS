@@ -95,11 +95,12 @@ export default function Appointments() {
                                             variant="outline-danger"
                                             size="sm"
                                             onClick={() => handleCancel(appt.id)}
+                                            disabled={appt.status !== 'pending'}
                                         >
                                             Cancel
                                         </Button>
-                                        <Link to={`/user/reschedule/${appt.id}`}>
-                                            <Button variant="outline-secondary" size="sm">
+                                        <Link to={`/user/reshedule/${appt.id}`}>
+                                            <Button variant="outline-secondary" size="sm" disabled={appt.status !== 'pending'}>
                                                 Reschedule
                                             </Button>
                                         </Link>

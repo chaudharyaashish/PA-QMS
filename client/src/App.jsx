@@ -1,11 +1,6 @@
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
-import { ToastContainer } from "react-toastify";
+import {BrowserRouter as Router, Navigate, Route, Routes,} from "react-router-dom";
+import {ToastContainer} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -33,156 +28,200 @@ import NotFound from "./pages/NotFound.jsx";
 // Auth components
 import PrivateRoute from "./components/PrivateRoute";
 import PublicRoute from "./components/PublicRoute";
-import { AuthProvider } from "./context/AuthContext";
+import {AuthProvider} from "./context/AuthContext";
+import Reshedule from "./pages/user/Reshedule.jsx";
+import PrescriptionPage from "./pages/user/prescription.jsx";
+import ChatLayout from "./components/ChatLayout.jsx";
+import SelfCheckIn from "./pages/user/SelfCheckIn.jsx";
+import QueueManagement from "./pages/doctor/QueueManagement.jsx";
 
 function App() {
-  return (
-    <Router>
-      <AuthProvider>
-        <div className="w-full d-flex flex-column min-vh-100 mx-auto">
-          <Header />
-          <main className="flex-shrink-0 py-4">
-            <div className="container">
-              <Routes>
-                {/* Public routes */}
-                <Route path="/home" element={<Home />} />
-                <Route path="/contact" element={<Contact />} />
-                <Route
-                  path="/login"
-                  element={
-                    <PublicRoute>
-                      <Login />
-                    </PublicRoute>
-                  }
-                />
-                <Route
-                  path="/register"
-                  element={
-                    <PublicRoute>
-                      <Register />
-                    </PublicRoute>
-                  }
-                />
+    return (
+        <Router>
+            <AuthProvider>
+                <div className="w-full d-flex flex-column min-vh-100 mx-auto">
+                    <Header/>
+                    <main className="flex-shrink-0 py-4">
+                        <div className="container">
+                            <Routes>
+                                {/* Public routes */}
+                                <Route path="/home" element={<Home/>}/>
+                                <Route path="/" index element={<Home/>}/>
+                                <Route path="/contact" element={<Contact/>}/>
 
-                {/* User routes */}
-                <Route
-                  path="/user/dashboard"
-                  element={
-                    <PrivateRoute allowedRoles={["user", "doctor", "admin"]}>
-                      <UserDashboard />
-                    </PrivateRoute>
-                  }
-                />
-                <Route
-                  path="/user/profile"
-                  element={
-                    <PrivateRoute allowedRoles={["user", "doctor", "admin"]}>
-                      <UserProfile />
-                    </PrivateRoute>
-                  }
-                />
-                <Route
-                  path="/user/book-appointment"
-                  element={
-                    <PrivateRoute allowedRoles={["user"]}>
-                      <BookAppointment />
-                    </PrivateRoute>
-                  }
-                />
-                <Route
-                  path="/user/appointments"
-                  element={
-                    <PrivateRoute allowedRoles={["user"]}>
-                      <UserAppointments />
-                    </PrivateRoute>
-                  }
-                />
+                                <Route
+                                    path="/login"
+                                    element={
+                                        <PublicRoute>
+                                            <Login/>
+                                        </PublicRoute>
+                                    }
+                                />
+                                <Route
+                                    path="/register"
+                                    element={
+                                        <PublicRoute>
+                                            <Register/>
+                                        </PublicRoute>
+                                    }
+                                />
 
-                {/* Doctor routes */}
-                <Route
-                  path="/doctor/register"
-                  element={
-                    <PrivateRoute allowedRoles={["doctor"]}>
-                      <DoctorRegistration />
-                    </PrivateRoute>
-                  }
-                />
-                <Route
-                  path="/doctor/dashboard"
-                  element={
-                    <PrivateRoute allowedRoles={["doctor"]}>
-                      <DoctorDashboard />
-                    </PrivateRoute>
-                  }
-                />
-                <Route
-                  path="/doctor/profile"
-                  element={
-                    <PrivateRoute allowedRoles={["doctor"]}>
-                      <DoctorProfile />
-                    </PrivateRoute>
-                  }
-                />
-                <Route
-                  path="/doctor/appointments"
-                  element={
-                    <PrivateRoute allowedRoles={["doctor"]}>
-                      <DoctorAppointments />
-                    </PrivateRoute>
-                  }
-                />
+                                {/* User routes */}
+                                <Route
+                                    path="/chat"
+                                    element={
+                                        <PrivateRoute allowedRoles={["user", "doctor", "admin"]}>
+                                            <ChatLayout/>
+                                        </PrivateRoute>
+                                    }
+                                />
+                                <Route
+                                    path="/user/dashboard"
+                                    element={
+                                        <PrivateRoute allowedRoles={["user", "doctor", "admin"]}>
+                                            <UserDashboard/>
+                                        </PrivateRoute>
+                                    }
+                                />
+                                <Route path="/self-check-in" element={
+                                    <PrivateRoute allowedRoles={["user"]}>
+                                        <SelfCheckIn/>
+                                    </PrivateRoute>
+                                }/>
+                                <Route
+                                    path="/user/profile"
+                                    element={
+                                        <PrivateRoute allowedRoles={["user", "doctor", "admin"]}>
+                                            <UserProfile/>
+                                        </PrivateRoute>
+                                    }
+                                />
+                                <Route
+                                    path="/user/book-appointment"
+                                    element={
+                                        <PrivateRoute allowedRoles={["user"]}>
+                                            <BookAppointment/>
+                                        </PrivateRoute>
+                                    }
+                                />
+                                <Route
+                                    path="/user/appointments"
+                                    element={
+                                        <PrivateRoute allowedRoles={["user"]}>
+                                            <UserAppointments/>
+                                        </PrivateRoute>
+                                    }
+                                /><Route
+                                path="/user/reshedule/:appointmentId"
+                                element={
+                                    <PrivateRoute allowedRoles={["user"]}>
+                                        <Reshedule/>
+                                    </PrivateRoute>
+                                }
+                            /><Route
+                                path="/user/prescriptions"
+                                element={
+                                    <PrivateRoute allowedRoles={["user"]}>
+                                        <PrescriptionPage/>
+                                    </PrivateRoute>
+                                }
+                            />
 
-                {/* Admin routes */}
-                <Route
-                  path="/admin/dashboard"
-                  element={
-                    <PrivateRoute allowedRoles={["admin"]}>
-                      <AdminDashboard />
-                    </PrivateRoute>
-                  }
-                />
-                <Route
-                  path="/admin/doctors"
-                  element={
-                    <PrivateRoute allowedRoles={["admin"]}>
-                      <AdminDoctors />
-                    </PrivateRoute>
-                  }
-                />
-                <Route
-                  path="/admin/users"
-                  element={
-                    <PrivateRoute allowedRoles={["admin"]}>
-                      <AdminUsers />
-                    </PrivateRoute>
-                  }
-                />
-                <Route
-                  path="/admin/appointments"
-                  element={
-                    <PrivateRoute allowedRoles={["admin"]}>
-                      <AdminAppointments />
-                    </PrivateRoute>
-                  }
-                />
+                                {/* Doctor routes */}
+                                <Route
+                                    path="/doctor/register"
+                                    element={
+                                        <PrivateRoute allowedRoles={["doctor"]}>
+                                            <DoctorRegistration/>
+                                        </PrivateRoute>
+                                    }
+                                />
+                                <Route
+                                    path="/doctor/dashboard"
+                                    element={
+                                        <PrivateRoute allowedRoles={["doctor"]}>
+                                            <DoctorDashboard/>
+                                        </PrivateRoute>
+                                    }
+                                />
+                                <Route
+                                    path="/doctor/profile"
+                                    element={
+                                        <PrivateRoute allowedRoles={["doctor"]}>
+                                            <DoctorProfile/>
+                                        </PrivateRoute>
+                                    }
+                                />
+                                <Route
+                                    path="/doctor/appointments"
+                                    element={
+                                        <PrivateRoute allowedRoles={["doctor"]}>
+                                            <DoctorAppointments/>
+                                        </PrivateRoute>
+                                    }
+                                />
 
-                {/* Redirect based on role */}
-                <Route
-                  path="/dashboard"
-                  element={<Navigate to="/user/dashboard" replace />}
-                />
+                                <Route
+                                    path="/doctor/queue"
+                                    element={
+                                        <PrivateRoute allowedRoles={["doctor"]}>
+                                            <QueueManagement />
+                                        </PrivateRoute>
+                                    }
+                                />
 
-                {/* 404 Not Found */}
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </div>
-          </main>
-          <Footer />
-          <ToastContainer position="top-right" autoClose={3000} />
-        </div>
-      </AuthProvider>
-    </Router>
-  );
+
+                                {/* Admin routes */}
+                                <Route
+                                    path="/admin/dashboard"
+                                    element={
+                                        <PrivateRoute allowedRoles={["admin"]}>
+                                            <AdminDashboard/>
+                                        </PrivateRoute>
+                                    }
+                                />
+                                <Route
+                                    path="/admin/doctors"
+                                    element={
+                                        <PrivateRoute allowedRoles={["admin"]}>
+                                            <AdminDoctors/>
+                                        </PrivateRoute>
+                                    }
+                                />
+                                <Route
+                                    path="/admin/users"
+                                    element={
+                                        <PrivateRoute allowedRoles={["admin"]}>
+                                            <AdminUsers/>
+                                        </PrivateRoute>
+                                    }
+                                />
+                                <Route
+                                    path="/admin/appointments"
+                                    element={
+                                        <PrivateRoute allowedRoles={["admin"]}>
+                                            <AdminAppointments/>
+                                        </PrivateRoute>
+                                    }
+                                />
+
+                                {/* Redirect based on role */}
+                                <Route
+                                    path="/dashboard"
+                                    element={<Navigate to="/user/dashboard" replace/>}
+                                />
+
+                                {/* 404 Not Found */}
+                                <Route path="*" element={<NotFound/>}/>
+                            </Routes>
+                        </div>
+                    </main>
+                    <Footer/>
+                    <ToastContainer position="top-right" autoClose={3000}/>
+                </div>
+            </AuthProvider>
+        </Router>
+    );
 }
 
 export default App;
