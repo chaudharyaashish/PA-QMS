@@ -114,7 +114,7 @@ const ChatLayout = () => {
             <div className="sidebar">
                 <h2>Messages</h2>
                 <ConversationList
-                    users={users}
+                    users={users.filter(user => user.role !== currentUser.role)}
                     onSelectConversation={handleSelectConversation}
                     currentUser={currentUser}
                 />

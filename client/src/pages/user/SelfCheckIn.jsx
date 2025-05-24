@@ -68,7 +68,7 @@ const SelfCheckIn = () => {
                              className="bg-white rounded-lg shadow-md p-6 border">
                             <div className="mb-4">
                                 <h2 className="text-xl font-semibold">
-                                    Dr. {appointment.Doctor.name}
+                                    Dr. {appointment.Doctor.User.name}
                                 </h2>
                                 <p className="text-gray-600">
                                     {appointment.Doctor.specialization}
@@ -77,7 +77,7 @@ const SelfCheckIn = () => {
                             
                             <div className="mb-4">
                                 <p className="text-gray-700">
-                                    Time: {formatTime(appointment.time)}
+                                    Time: {formatTime(appointment.appointmentTime)}
                                 </p>
                                 <p className="text-gray-700">
                                     Status: <span className="font-medium">

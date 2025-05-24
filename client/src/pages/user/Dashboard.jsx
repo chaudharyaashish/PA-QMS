@@ -5,7 +5,7 @@ import {AuthContext} from '../../context/AuthContext';
 import axios from 'axios';
 import {API_URL} from '../../config';
 
-const UserDashboard = () => {
+const Dashboard = () => {
     const {currentUser} = useContext(AuthContext);
     const [appointments, setAppointments] = useState([]);
     const [prescriptions, setPrescriptions] = useState([]);
@@ -51,49 +51,11 @@ const UserDashboard = () => {
         }
     };
 
-    const refreshQueueStatus = async () => {
-        setQueueLoading(true);
-        try {
-            const token = localStorage.getItem('token');
-            const config = {
-                headers: {Authorization: `Bearer ${token}`}
-            };
-            const response = await axios.get(`${API_URL}/api/queue/status/` + todayAppointments[0], config);
-            setQueuePosition(response.data.position);
-            setEstimatedTime(response.data.estimatedTime);
-        } catch (error) {
-            console.error("Failed to fetch queue status", error);
-            setQueuePosition('Unavailable');
-            setEstimatedTime('Unavailable');
-        } finally {
-            setQueueLoading(false);
-        }
-    };
-
-    useEffect(() => {
-        refreshQueueStatus();
-    }, []);
-
-    useEffect(() => {
-        const fetchPrescriptions = async () => {
-            try {
-                const token = localStorage.getItem('token');
-                const config = {headers: {Authorization: `Bearer ${token}`}};
-                const response = await axios.get(`${API_URL}/api/prescriptions`, config);
-                setPrescriptions(response.data);
-            } catch (error) {
-                console.error('Error fetching prescriptions:', error);
-            }
-        };
-        fetchPrescriptions();
-    }, []);
-
     const upcomingAppointments = appointments
         .filter(app => app.status === 'pending' || app.status === 'approved')
         .sort((a, b) => new Date(a.appointmentDate) - new Date(b.appointmentDate))
         .slice(0, 3);
 
-    console.log(prescriptions)
     return (
         <Container>
             <h2 className="mb-4">Welcome, {currentUser?.name}!</h2>
@@ -203,19 +165,8 @@ const UserDashboard = () => {
                         <Card.Body>
                             <Card.Title>Live Queue Status</Card.Title>
                             <div className="mt-4">
-                                {queueLoading ? (
-                                    <div className="text-center">
-                                        <div className="spinner-border text-primary" role="status"/>
-                                    </div>
-                                ) : (
-                                    <>
+
                                         <p><strong>Current Queue Position:</strong> {queuePosition}</p>
-                                        <p><strong>Estimated Wait Time:</strong> {estimatedTime}</p>
-                                    </>
-                                )}
-                            </div>
-                            <div className="mt-3 text-center">
-                                <Button variant="outline-primary" onClick={refreshQueueStatus}>Refresh Status</Button>
                             </div>
                             <div className="mt-3 text-center">
                                 <Link to={'/self-check-in'}>
@@ -230,4 +181,4 @@ const UserDashboard = () => {
     );
 };
 
-export default UserDashboard;
+export default Dashboard;
