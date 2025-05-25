@@ -1,4 +1,4 @@
-// server/routes/queueRoutes.js
+
 const express = require('express');
 const queueController = require('../controllers/QueueManagementController.js');
 const {authenticateToken, isDoctor} = require('../middleware/authMiddleware');

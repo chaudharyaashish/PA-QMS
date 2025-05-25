@@ -61,24 +61,17 @@ const ChatLayout = () => {
                 setMessages(res.data);
             } catch (err) {
                 console.error("Error polling messages:", err);
-                // Optional: set a specific error for polling issues
-                // setError('Connection issues while refreshing messages');
             }
         };
 
-        // Initial fetch
         fetchMessages();
 
-        // Set up interval for polling (every 3 seconds)
         const intervalId = setInterval(fetchMessages, 3000);
 
-        // Clean up function to clear interval when component unmounts
-        // or when selectedUser changes
         return () => clearInterval(intervalId);
 
     }, [selectedUser])
 
-    // Handle sending a message
     const handleSendMessage = async (content) => {
         if (!selectedUser || !content.trim()) return;
 
@@ -86,7 +79,6 @@ const ChatLayout = () => {
             const receiverId = selectedUser.id;
             const res = await messageApi.sendMessage(receiverId, content);
 
-            // Update messages with the new message
             const newMessage = res.data;
             setMessages(prevMessages => [...prevMessages, newMessage]);
 
@@ -96,7 +88,6 @@ const ChatLayout = () => {
         }
     };
 
-    // Handle deleting a message
     const handleDeleteMessage = async (messageId) => {
         try {
             await messageApi.deleteMessage(messageId);

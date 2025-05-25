@@ -3,7 +3,6 @@ const Doctor = require('../models/Doctor');
 const Appointment = require('../models/Appointment');
 const { Op } = require('sequelize');
 
-// Get all doctors (approved and non-approved)
 const getAllDoctors = async (req, res) => {
     try {
         const doctors = await Doctor.findAll({
@@ -21,7 +20,6 @@ const getAllDoctors = async (req, res) => {
     }
 };
 
-// Approve doctor
 const approveDoctor = async (req, res) => {
     try {
         const { doctorId } = req.params;
@@ -43,7 +41,6 @@ const approveDoctor = async (req, res) => {
     }
 };
 
-// Get all users
 const getAllUsers = async (req, res) => {
     try {
         const users = await User.findAll({
@@ -61,7 +58,6 @@ const getAllUsers = async (req, res) => {
     }
 };
 
-// Get all appointments
 const getAllAppointments = async (req, res) => {
     try {
         const appointments = await Appointment.findAll({

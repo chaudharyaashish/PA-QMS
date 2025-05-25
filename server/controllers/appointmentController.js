@@ -33,7 +33,6 @@ const createAppointment = async (req, res) => {
             status: 'pending'
         });
 
-        // Send email notification
         await sendEmail(
             user.email, 
             emailTemplates.appointmentCreated(
@@ -52,7 +51,6 @@ const createAppointment = async (req, res) => {
     }
 };
 
-// Approve appointment by doctor
 const approveAppointment = async (req, res) => {
     const { appointmentId } = req.params;
 
@@ -83,7 +81,6 @@ const approveAppointment = async (req, res) => {
     }
 };
 
-// Cancel appointment by doctor
 const cancelAppointmentByDoctor = async (req, res) => {
     const { appointmentId } = req.params;
     const { reason } = req.body;
@@ -115,7 +112,6 @@ const cancelAppointmentByDoctor = async (req, res) => {
     }
 };
 
-// Reschedule appointment
 const rescheduleAppointment = async (req, res) => {
     try {
         const { appointmentId } = req.params;
@@ -148,18 +144,15 @@ const rescheduleAppointment = async (req, res) => {
             return res.status(404).json({ message: 'User not found' });
         }
 
-        // Store old values for email
         const oldDate = appointment.appointmentDate;
         const oldTime = appointment.appointmentTime;
 
-        // Update appointment
         appointment.appointmentDate = appointmentDate;
         appointment.appointmentTime = appointmentTime;
         appointment.reason = reason;
 
         await appointment.save();
 
-        // Send email notification
         await sendEmail(
             user.email,
             emailTemplates.appointmentRescheduled(
@@ -180,7 +173,6 @@ const rescheduleAppointment = async (req, res) => {
     }
 };
 
-// Get user appointments
 const getUserAppointments = async (req, res) => {
     try {
         const appointments = await Appointment.findAll({
@@ -200,7 +192,6 @@ const getUserAppointments = async (req, res) => {
     }
 };
 
-// Fetch single appointment details
 const getSingleAppointment = async (req, res) => {
     try {
         const { appointmentId } = req.params;
@@ -225,7 +216,6 @@ const getSingleAppointment = async (req, res) => {
     }
 };
 
-// Cancel appointment (by user)
 const cancelAppointment = async (req, res) => {
     try {
         const { appointmentId } = req.params;
@@ -249,7 +239,6 @@ const cancelAppointment = async (req, res) => {
             return res.status(404).json({ message: 'User not found' });
         }
 
-        // Send email notification before deleting the appointment
         await sendEmail(
             user.email,
             emailTemplates.appointmentCancelledByUser(
@@ -269,7 +258,6 @@ const cancelAppointment = async (req, res) => {
     }
 };
 
-// Get today's appointments
 const getTodayAppointments = async (req, res) => {
     try {
         const userId = req.user.id;

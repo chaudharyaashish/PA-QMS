@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, Button, Form, Alert, Spinner } from 'react-bootstrap';
 import axios from 'axios';
-import { API_URL } from '../../config'; // Adjust this according to your config file
+import { API_URL } from '../../config'; 
 
 const PrescriptionModal = ({ show, handleClose, appointmentId, onPrescriptionCreated }) => {
     const [prescriptionText, setPrescriptionText] = useState('');
@@ -38,8 +38,8 @@ const PrescriptionModal = ({ show, handleClose, appointmentId, onPrescriptionCre
             );
 
             setSuccessMessage('Prescription created successfully!');
-            onPrescriptionCreated(); // Notify parent component to refresh or update state
-            handleClose(); // Close modal
+            onPrescriptionCreated(); 
+            handleClose(); 
         } catch (err) {
             setError(err.response?.data?.message || 'Error creating prescription');
         } finally {

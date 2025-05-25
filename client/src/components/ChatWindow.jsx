@@ -14,7 +14,7 @@ const ChatWindow = ({
     const messagesEndRef = useRef(null);
     const messagesContainerRef = useRef(null);
 
-    // After sending a message, always scroll to bottom
+    // scrolldown after sending a message
     const handleSend = (e) => {
         e.preventDefault();
         if (newMessage.trim()) {

@@ -1,18 +1,16 @@
-// server/controllers/queueController.js
+
 const Queue = require('../models/QueueModel');
 const User = require('../models/User');
 const Appointment = require('../models/Appointment.js');
 const {Op} = require('sequelize');
 
 const queueController = {
-    // Self check-in: Create queue entry for today's appointment
-    // server/controllers/QueueManagementController.js
     async checkIn(req, res) {
         try {
             const { appointmentId } = req.body;
             const today = new Date().toISOString().split('T')[0];
 
-            // Verify appointment exists and is for today
+            // check the appointment exists and is for today
             const appointment = await Appointment.findOne({
                 where: {
                     id: appointmentId,
@@ -27,7 +25,7 @@ const queueController = {
                 });
             }
 
-            // Check if already checked in
+            // check if user already checked in
             const existingQueue = await Queue.findOne({
                 where: { appointmentId }
             });
@@ -38,7 +36,7 @@ const queueController = {
                 });
             }
 
-            // Get the latest queue number for today
+            // queue number
             const lastQueue = await Queue.findOne({
                 where: {
                     checkInTime: {
@@ -50,7 +48,7 @@ const queueController = {
 
             const newQueueNumber = lastQueue ? lastQueue.queueNumber + 1 : 1;
 
-            // Create queue entry
+            // queue entry
             const queue = await Queue.create({
                 appointmentId,
                 queueNumber: newQueueNumber,
@@ -70,10 +68,10 @@ const queueController = {
         }
     },
 
-    // Get current queue status for a doctor
+    // 
     async getDoctorQueue(req, res) {
         try {
-            const doctorId = req.doctorId; // Get from middleware
+            const doctorId = req.doctorId; //from middleware
             const today = new Date().toISOString().split('T')[0];
 
             const queues = await Queue.findAll({
@@ -103,7 +101,6 @@ const queueController = {
         }
     },
 
-    // Update queue status (for doctors)
     async updateQueueStatus(req, res) {
         try {
             const {queueId} = req.params;
@@ -122,7 +119,6 @@ const queueController = {
                 completionTime: status === 'completed' ? new Date() : null
             });
 
-            // If completed, update appointment status
             if (status === 'completed') {
                 await queue.Appointment.update({status: 'completed'});
             }
@@ -136,7 +132,6 @@ const queueController = {
         }
     },
 
-    // Get patient's queue position
     async getPatientQueueStatus(req, res) {
         try {
             const {appointmentId} = req.params;
@@ -150,7 +145,6 @@ const queueController = {
                 return res.status(404).json({message: 'Not checked in yet'});
             }
 
-            // Count how many people are ahead in the queue
             const peopleAhead = await Queue.count({
                 where: {
                     queueNumber: {[Op.lt]: currentQueue.queueNumber},
@@ -165,7 +159,7 @@ const queueController = {
                 queueNumber: currentQueue.queueNumber,
                 status: currentQueue.status,
                 peopleAhead,
-                estimatedWaitTime: peopleAhead * 15 // Assuming 15 minutes per patient
+                estimatedWaitTime: peopleAhead * 15 
             });
 
         } catch (error) {

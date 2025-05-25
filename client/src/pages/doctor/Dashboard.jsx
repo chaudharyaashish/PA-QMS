@@ -259,7 +259,7 @@ const DoctorDashboard = () => {
                                                         disabled={updating === appt.id}
                                                         onClick={() => updateStatus(appt.id, 'cancelled')}
                                                     >
-                                                        {updating === appt.id ? 'Cancelling...' : 'Cancel'}
+                                                        Cancel
                                                     </Button>
                                                 </>
                                             )}
@@ -289,50 +289,7 @@ const DoctorDashboard = () => {
                     </Card>
                 </Col>
             </Row>
-
-            {/*/!* Quick Actions *!/*/}
-            {/*<Row>*/}
-            {/*    <Col md={6}>*/}
-            {/*        <Card className="shadow-sm mb-4">*/}
-            {/*            <Card.Body>*/}
-            {/*                <Card.Title>Quick Actions</Card.Title>*/}
-            {/*                <div className="d-grid gap-2 mt-3">*/}
-            {/*                    <Link to="/doctor/new-appointment">*/}
-            {/*                        <Button variant="primary" className="text-start">*/}
-            {/*                            <i className="fas fa-plus-circle me-2"></i> Schedule New Appointment*/}
-            {/*                        </Button>*/}
-            {/*                    </Link>*/}
-            {/*                    <Link to="/doctor/new-prescription">*/}
-            {/*                        <Button variant="success" className="text-start">*/}
-            {/*                            <i className="fas fa-prescription-bottle-alt me-2"></i> Create Prescription*/}
-            {/*                        </Button>*/}
-            {/*                    </Link>*/}
-            {/*                    <Link to="/doctor/patients">*/}
-            {/*                        <Button variant="info" className="text-start">*/}
-            {/*                            <i className="fas fa-user-injured me-2"></i> View Patients*/}
-            {/*                        </Button>*/}
-            {/*                    </Link>*/}
-            {/*                </div>*/}
-            {/*            </Card.Body>*/}
-            {/*        </Card>*/}
-            {/*    </Col>*/}
-
-            {/*    <Col md={6}>*/}
-            {/*        <Card className="shadow-sm mb-4">*/}
-            {/*            <Card.Body>*/}
-            {/*                <Card.Title>Recent Messages</Card.Title>*/}
-
-            {/*                <div className="text-center mt-3">*/}
-            {/*                    <Link to="/doctor/messages">*/}
-            {/*                        <Button variant="outline-secondary" size="sm">*/}
-            {/*                            View All Messages*/}
-            {/*                        </Button>*/}
-            {/*                    </Link>*/}
-            {/*                </div>*/}
-            {/*            </Card.Body>*/}
-            {/*        </Card>*/}
-            {/*    </Col>*/}
-            {/*</Row>*/}
+            
             {
                 doctor && doctor.isApproved ? "" :
                     <Link to={"/doctor/register"}>Verify Doctor</Link>

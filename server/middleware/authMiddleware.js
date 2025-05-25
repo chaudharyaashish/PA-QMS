@@ -34,20 +34,19 @@ const isAdmin = (req, res, next) => {
     next();
 };
 
-// server/middleware/authMiddleware.js
 const isDoctor = async (req, res, next) => {
     try {
         if (req.user.role !== 'doctor') {
             return res.status(403).json({ message: 'Requires doctor privileges' });
         }
 
-        // Fetch doctor details
+        // fetch doctor details
         const doctor = await Doctor.findOne({ where: { userId: req.user.id } });
         if (!doctor) {
             return res.status(404).json({ message: 'Doctor profile not found' });
         }
 
-        req.doctorId = doctor.id; // Add doctorId to request
+        req.doctorId = doctor.id; 
         next();
     } catch (error) {
         res.status(500).json({ message: 'Server error', error: error.message });

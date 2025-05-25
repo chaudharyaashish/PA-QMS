@@ -1,4 +1,4 @@
-// src/components/ConversationList.js - List of conversations
+
 import React from 'react';
 
 const ConversationList = ({

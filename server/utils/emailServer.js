@@ -1,6 +1,6 @@
 const nodemailer = require('nodemailer');
 
-// Create transporter
+
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -9,7 +9,7 @@ const transporter = nodemailer.createTransport({
     }
 });
 
-// Email templates
+
 const emailTemplates = {
     appointmentCreated: (userName, doctorName, date, time, reason) => ({
         subject: 'Appointment Request Received',
@@ -99,7 +99,7 @@ const emailTemplates = {
     })
 };
 
-// Reusable general-purpose email sending function
+
 const sendMail = async ({ to, subject, html }) => {
     try {
         const mailOptions = {
@@ -110,30 +110,29 @@ const sendMail = async ({ to, subject, html }) => {
         };
 
         const info = await transporter.sendMail(mailOptions);
-        console.log('📧 Email Sent Successfully');
-        console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+        console.log('Email Sent Successfully');
+        console.log('');
         console.log('To:', to);
         console.log('Subject:', subject);
         console.log('Message ID:', info.messageId);
         console.log('Response:', info.response);
         console.log('Accepted Recipients:', info.accepted);
         console.log('Timestamp:', new Date().toISOString());
-        console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+        console.log('');
         return true;
     } catch (error) {
-        console.error('❌ Email Sending Failed');
-        console.error('━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+        console.error('Email Sending Failed');
+        console.error('');
         console.error('To:', to);
         console.error('Subject:', subject);
         console.error('Error Code:', error.code);
         console.error('Error Message:', error.message);
         console.error('Timestamp:', new Date().toISOString());
-        console.error('━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+        console.error('');
         return false;
     }
 };
 
-// Optional wrapper using predefined templates
 const sendEmail = async (to, template) => {
     return await sendMail({
         to,
@@ -143,7 +142,7 @@ const sendEmail = async (to, template) => {
 };
 
 module.exports = {
-    sendEmail,      // Send from template
-    sendMail,       // Send with raw subject/html
-    emailTemplates  // Export templates for reuse
+    sendEmail,      
+    sendMail,       
+    emailTemplates  
 };

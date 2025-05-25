@@ -48,7 +48,6 @@ const Prescription = sequelize.define("Prescription", {
     },
 });
 
-// Associations
 Prescription.belongsTo(User, { foreignKey: "userId" });
 Prescription.belongsTo(Doctor, { foreignKey: "doctorId" });
 Prescription.belongsTo(Appointment, { foreignKey: "appointmentId" });

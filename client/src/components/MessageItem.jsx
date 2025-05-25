@@ -1,4 +1,4 @@
-// src/components/MessageItem.js - Individual message component
+
 import React from 'react';
 import { formatDistanceToNow } from 'date-fns';
 

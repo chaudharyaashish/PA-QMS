@@ -1,4 +1,4 @@
-// client/src/pages/doctor/QueueManagement.jsx
+
 import React, { useState, useEffect, useContext } from 'react';
 import { Card, Button, Badge, Alert } from 'react-bootstrap';
 import { AuthContext } from '../../context/AuthContext';

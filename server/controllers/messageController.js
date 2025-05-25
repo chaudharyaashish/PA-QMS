@@ -4,19 +4,19 @@ const {Op} = require('sequelize');
 const sequelize = require('sequelize');
 
 class MessageController {
-    // Send a new message
+    // send message
     async sendMessage(req, res) {
         try {
             const {receiverId, content} = req.body;
-            const senderId = req.user.id; // Assuming req.user is set by authentication middleware
+            const senderId = req.user.id; 
 
-            // Validate receiver exists
+          
             const receiver = await User.findByPk(receiverId);
             if (!receiver) {
                 return res.status(404).json({success: false, message: 'Receiver not found'});
             }
 
-            // Create new message
+            // create message
             const message = await Message.create({
                 senderId,
                 receiverId,
@@ -38,19 +38,18 @@ class MessageController {
         }
     }
 
-    // Get conversation between current user and another user
+    
     async getConversation(req, res) {
         try {
             const currentUserId = req.user.id;
             const {userId} = req.params;
 
-            // Validate the other user exists
+            
             const otherUser = await User.findByPk(userId);
             if (!otherUser) {
                 return res.status(404).json({success: false, message: 'User not found'});
             }
 
-            // Get messages between the two users
             const messages = await Message.findAll({
                 where: {
                     [Op.or]: [
@@ -65,7 +64,6 @@ class MessageController {
                 ]
             });
 
-            // Mark unread messages as read
             await Message.update(
                 {isRead: true},
                 {
@@ -91,12 +89,10 @@ class MessageController {
         }
     }
 
-    // Get all conversations for the current user
     async getAllConversations(req, res) {
         try {
             const userId = req.user.id;
 
-            // Get all users the current user has chatted with
             const conversations = await Message.findAll({
                 attributes: [
                     [
@@ -122,17 +118,14 @@ class MessageController {
                 raw: true
             });
 
-            // Rest of the method stays the same...
             const conversationDetails = await Promise.all(
                 conversations.map(async (conv) => {
                     const otherUserId = conv.otherUserId;
 
-                    // Get other user details
                     const otherUser = await User.findByPk(otherUserId, {
                         attributes: ['id', 'name', 'email', 'role']
                     });
 
-                    // Get latest message
                     const latestMessage = await Message.findOne({
                         where: {
                             [Op.or]: [
@@ -143,7 +136,6 @@ class MessageController {
                         order: [['createdAt', 'DESC']]
                     });
 
-                    // Count unread messages
                     const unreadCount = await Message.count({
                         where: {
                             senderId: otherUserId,
@@ -175,7 +167,6 @@ class MessageController {
         }
     }
 
-    // Mark messages as read
     async markAsRead(req, res) {
         try {
             const currentUserId = req.user.id;
@@ -207,7 +198,6 @@ class MessageController {
         }
     }
 
-    // Delete a message (only sender can delete)
     async deleteMessage(req, res) {
         try {
             const userId = req.user.id;
@@ -222,7 +212,6 @@ class MessageController {
                 });
             }
 
-            // Check if user is the sender
             if (message.senderId !== userId) {
                 return res.status(403).json({
                     success: false,
