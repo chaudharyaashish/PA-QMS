@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const Doctor = require('../models/Doctor');
 
-const JWT_SECRET = 'your_jwt_secret_key';
+const JWT_SECRET = 'aashishchaudhary';
 
 const authenticateToken = async (req, res, next) => {
     try {

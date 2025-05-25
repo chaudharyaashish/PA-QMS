@@ -2,6 +2,7 @@ const Doctor = require("../models/Doctor");
 const User = require("../models/User");
 const Appointment = require("../models/Appointment");
 const { Op } = require("sequelize");
+const { sendEmail, emailTemplates } = require('../utils/emailServer');
 
 // Register as doctor
 const registerAsDoctor = async (req, res) => {
@@ -160,7 +161,10 @@ const updateAppointmentStatus = async (req, res) => {
   try {
     const { appointmentId, status, notes } = req.body;
 
-    const doctor = await Doctor.findOne({ where: { userId: req.user.id } });
+    const doctor = await Doctor.findOne({ 
+      where: { userId: req.user.id },
+      include: [{ model: User, attributes: ['name'] }]
+    });
     if (!doctor) {
       return res.status(404).json({ message: "Doctor profile not found" });
     }
@@ -170,6 +174,7 @@ const updateAppointmentStatus = async (req, res) => {
         id: appointmentId,
         doctorId: doctor.id,
       },
+      include: [{ model: User, attributes: ['id', 'name', 'email'] }]
     });
 
     if (!appointment) {
@@ -182,11 +187,25 @@ const updateAppointmentStatus = async (req, res) => {
 
     await appointment.save();
 
+    // Send email notification to the user
+    await sendEmail(
+      appointment.User.email,
+      emailTemplates.appointmentStatusUpdated(
+        appointment.User.name,
+        doctor.User.name,
+        appointment.appointmentDate,
+        appointment.appointmentTime,
+        appointment.status,
+        appointment.notes
+      )
+    );
+
     res.status(200).json({
       message: "Appointment status updated successfully",
       appointment,
     });
   } catch (error) {
+    console.error('Error updating appointment status:', error);
     res.status(500).json({ message: "Server error", error: error.message });
   }
 };
